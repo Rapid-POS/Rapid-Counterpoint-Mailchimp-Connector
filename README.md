@@ -1,6 +1,5 @@
-# Rapid Mailchimp Connector  
-### Client Information for version 2.1.9  
-**Updated April 18, 2025**
+# Rapid POS Mailchimp Connector - Version 2.1
+Updated 4/18/2025
 
 ---
 
