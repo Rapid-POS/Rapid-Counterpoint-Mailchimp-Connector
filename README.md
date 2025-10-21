@@ -3,6 +3,20 @@ Updated 4/18/2025
 
 ---
 
+## Overview
+
+The Rapid Mailchimp Connector enables seamless data synchronization between Counterpoint and Mailchimp, helping businesses manage customer marketing lists more effectively. The connector automatically syncs customer and sales data from Counterpoint to Mailchimp to support targeted email campaigns and audience segmentation. It can also import new or updated customer information from Mailchimp back into Counterpoint, ensuring both systems stay up to date.
+
+---
+
+## Minimum System Requirements:
+- Minimum Counterpoint version: **8.5.6.2**
+- Minimum SQL Server version: **2016**
+
+If you would like the Mailchimp connector but your system does not meet these minimum requirements, please consult your Care Team Lead (vCIO) for an upgrade quote.
+
+---
+
 ## Table of Contents
 - [Overview](#overview)
 - [Customer Information](#customer-information)
@@ -31,12 +45,6 @@ Updated 4/18/2025
   - [Mailchimp Field Mapping](#mailchimp-field-mapping)
   - [Run Mailchimp Connector](#run-mailchimp-connector)
   - [Mark All Mailchimp Messages as Read](#mark-all-mailchimp-messages-as-read)
-
----
-
-## Overview
-
-The Mailchimp connector pushes customers up from Counterpoint to Mailchimp. If desired, it can also pull customers down into Counterpoint. In addition, it can send some limited sales history data. This allows users to create segments, for example, customers who have purchased an item in a certain category.
 
 ---
 
