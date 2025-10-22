@@ -1,5 +1,5 @@
 # Rapid POS Mailchimp Connector - Version 2.1
-Updated 4/18/2025
+Updated 10/22/2025
 
 ---
 
@@ -45,12 +45,11 @@ If a client does not have an existing audience to use, the Mailchimp Connector w
 
 Only the audience defined in the **Mailchimp configuration settings** will receive data from Counterpoint. Information will not sync to any other audiences in the Mailchimp account.
 
-In Mailchimp, when the same contact (based on email address) exists in multiple audiences:
-- Each audience treats that contact as a **separate record**.  
+In Mailchimp, when the same contact (based on email address) exists in multiple audiences, each audience treats that contact as a **separate record**.  
 - Each record receives a unique **Mailchimp Contact ID** within its respective audience.  
 - The contact’s activity history, tags, merge fields, marketing permissions, and subscription status are tracked independently for each audience.
 
-For these reasons, it is generally recommended to use a single audience to prevent duplicate records; however, sometimes clients have a specific requirement to keep POS contacts separate from others. 
+It is generally recommended to use a single audience to prevent duplicate records; however, sometimes clients have a specific requirement to keep POS contacts separate from others. 
 
 ### Contacts
 
