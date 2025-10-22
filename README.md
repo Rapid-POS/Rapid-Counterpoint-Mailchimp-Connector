@@ -20,29 +20,37 @@ If you would like the Mailchimp connector but your system does not meet these mi
 ## Table of Contents
 
 - [Minimum System Requirements](#minimum-system-requirements)
-- [SECTION 1: Mailchimp Audiences and Contacts](#section-1-mailchimp-audiences-and-contacts)
-- [SECTION 2: Customer Information](#section-2-customer-information)
-- [SECTION 3: Ticket & Item Information](#section-3-ticket--item-information)
-- [SECTION 4: Connector Sync Process](#section-4-connector-sync-process)
-- [SECTION 5: Common Customer Sync Questions](#section-5-common-customer-sync-questions)
-- [SECTION 6: Troubleshooting and Sync Status Codes](#section-6-troubleshooting-and-sync-status-codes)
-- [SECTION 7: Importing Customers from Mailchimp into Counterpoint](#section-7-importing-customers-from-mailchimp-into-counterpoint)
-- [SECTION 8: Additional Mailchimp Tools](#section-8-additional-mailchimp-tools)
+- [Section 1: Mailchimp Audiences and Contacts](#section-1-mailchimp-audiences-and-contacts)
+- [Section 2: Customer Information](#section-2-customer-information)
+- [Section 3: Ticket & Item Information](#section-3-ticket--item-information)
+- [Section 4: Connector Sync Process](#section-4-connector-sync-process)
+- [Section 5: Common Customer Sync Questions](#section-5-common-customer-sync-questions)
+- [Section 6: Troubleshooting and Sync Status Codes](#section-6-troubleshooting-and-sync-status-codes)
+- [Section 7: Importing Customers from Mailchimp into Counterpoint](#section-7-importing-customers-from-mailchimp-into-counterpoint)
+- [Section 8: Additional Mailchimp Tools](#section-8-additional-mailchimp-tools)
 - [Conclusion](#conclusion)
 
 ---
 
 ## SECTION 1: Mailchimp Audiences and Contacts
 
-The Mailchimp Connector defines how your Counterpoint customer data interacts with Mailchimp. It ensures that your audience and contacts stay updated so that email campaigns always use the most current customer information.
+The Mailchimp Connector defines how your Counterpoint customer data interacts with Mailchimp. It ensures that your Mailchimp audience and contacts stay updated so that email campaigns always use the most current customer information.
 
 ### Audience
 
-If a client already has an audience created in Mailchimp, they may choose to use that existing audience for their Counterpoint connection.  
+If a client already has an audience set up in Mailchimp, they can choose to use that existing audience for their Counterpoint connection.  
+- Mailchimp generally recommends maintaining **a single audience** so that each contact has one unified record. - Segmentation—through **tags, groups, or segments**—can then be used to organize and target contacts within that audience.
 
-If no audience exists, the Mailchimp Connector will automatically create one titled **Counterpoint** during setup.  
+If a client does not have an existing audience to use, the Mailchimp Connector will automatically create one titled **Counterpoint** during setup.
 
-Only the audience defined in the Mailchimp configuration settings will receive information from Counterpoint. Data will not sync to any other audiences that may exist in the Mailchimp account.
+Only the audience defined in the **Mailchimp configuration settings** will receive data from Counterpoint. Information will not sync to any other audiences in the Mailchimp account.
+
+In Mailchimp, when the same contact (based on email address) exists in multiple audiences:
+- Each audience treats that contact as a **separate record**.  
+- Each record receives a unique **Mailchimp Contact ID** within its respective audience.  
+- The contact’s activity history, tags, merge fields, marketing permissions, and subscription status are tracked independently for each audience.
+
+For these reasons, it is generally recommended to use a single audience to prevent duplicate records; however, sometimes clients have a specific requirement to keep POS contacts separate from others. 
 
 ### Contacts
 
