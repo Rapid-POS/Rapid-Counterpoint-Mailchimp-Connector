@@ -5,7 +5,7 @@ Updated 4/18/2025
 
 ## Overview
 
-The Rapid Mailchimp Connector enables seamless data synchronization between Counterpoint and Mailchimp, helping businesses manage customer marketing lists more effectively. The connector automatically syncs customer and sales data from Counterpoint to Mailchimp to support targeted email campaigns and audience segmentation. It can also import new or updated customer information from Mailchimp back into Counterpoint, ensuring both systems stay up to date.
+The Rapid Mailchimp Connector automatically syncs customer and sales data from Counterpoint to Mailchimp to support targeted email campaigns and audience segmentation. It can also import new or updated customer information from Mailchimp back into Counterpoint, ensuring both systems stay up to date.
 
 ---
 
@@ -19,7 +19,6 @@ If you would like the Mailchimp connector but your system does not meet these mi
 
 ## Table of Contents
 
-- [Overview](#overview)
 - [Minimum System Requirements](#minimum-system-requirements)
 - [SECTION 1: Mailchimp Audiences and Contacts](#section-1-mailchimp-audiences-and-contacts)
 - [SECTION 2: Customer Information](#section-2-customer-information)
@@ -43,8 +42,7 @@ If a client already has an audience created in Mailchimp, they may choose to use
 
 If no audience exists, the Mailchimp Connector will automatically create one titled **Counterpoint** during setup.  
 
-Only the audience defined in the Mailchimp configuration settings will receive information from Counterpoint.  
-Data will not sync to any other audiences that may exist in the Mailchimp account.
+Only the audience defined in the Mailchimp configuration settings will receive information from Counterpoint. Data will not sync to any other audiences that may exist in the Mailchimp account.
 
 ### Contacts
 
@@ -57,8 +55,7 @@ The connector pushes customer records from Counterpoint to Mailchimp **only** wh
 
 ## SECTION 2: Customer Information
 
-It is important to distinguish between **customer information** and information related to **tickets** or **items**.  
-Mailchimp accepts a wide range of customer data but supports only limited ticket and item information.
+It is important to distinguish between **customer information** and information related to **tickets** or **items**. Mailchimp accepts a wide range of customer data but supports only limited ticket and item information.
 
 Below are examples of customer details that can be sent to Mailchimp:
 
@@ -81,8 +78,7 @@ The Mailchimp connector uses **custom field mapping**, allowing nearly any field
 
 ### Addresses
 
-Mailchimp requires the **full customer address** to be combined into a single field with a column type of address.  
-Accordingly, **Address 1**, **Address 2**, **Address 3**, **City**, **State**, and **Zip Code** are merged and sent to Mailchimp as one field.
+Mailchimp requires the **full customer address** to be combined into a single field with a column type of address. Accordingly, **Address 1**, **Address 2**, **Address 3**, **City**, **State**, and **Zip Code** are merged and sent to Mailchimp as one field.
 
 If you would like to send these fields individually (for example, **Zip Code** for audience segmentation), you can configure them as separate custom fields.
 
