@@ -303,10 +303,10 @@ Configuration settings for the connector can be reviewed at any time in **Counte
 
 Initial settings are established prior to installation. To modify configuration values, consult with Rapid.
 
->#### Skip Merge Validation (Configuration Option)
->Some clients configure **required** merge fields in Mailchimp — often to enable required fields on a website sign-up form. When those fields are missing in Counterpoint, Mailchimp normally rejects the sync and returns an error.
-
->Enabling Skip Merge Validation within the Mailchimp configuration allows the connector to **bypass merge-field validation** and **force the customer to sync**. This prevents missing fields from blocking synchronization.
+>>#### Skip Merge Validation (Configuration Option)
+>>Some clients configure **required** merge fields in Mailchimp — often to enable required fields on a website sign-up form. When those fields are missing in Counterpoint, Mailchimp normally rejects the sync and returns an error.
+>>
+>>Enabling Skip Merge Validation within the Mailchimp configuration allows the connector to **bypass merge-field validation** and **force the customer to sync**. This prevents missing fields from blocking synchronization.
 
 ### Mailchimp Field Mapping
 Customer merge fields and their mappings are displayed in **Counterpoint > Connectors > Mailchimp > Mailchimp Field Mapping**.  
