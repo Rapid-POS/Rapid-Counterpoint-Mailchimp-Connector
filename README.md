@@ -27,7 +27,8 @@ If you would like the Mailchimp connector but your system does not meet these mi
 - [Section 5: Common Customer Sync Questions](#section-5-common-customer-sync-questions)
 - [Section 6: Troubleshooting and Sync Status Codes](#section-6-troubleshooting-and-sync-status-codes)
 - [Section 7: Importing Customers from Mailchimp into Counterpoint](#section-7-importing-customers-from-mailchimp-into-counterpoint)
-- [Section 8: Additional Mailchimp Tools](#section-8-additional-mailchimp-tools)
+- [Section 8: Configuration](#section-8-configuration)
+- [Section 9: Additional Mailchimp Tools](#section-9-additional-mailchimp-tools)
 - [Conclusion](#conclusion)
 
 ---
@@ -296,7 +297,79 @@ When importing data from Mailchimp, if an existing customer record in Counterpoi
 
 This protects business names from being replaced with individual name data during the import process.
 
-## SECTION 8: Additional Mailchimp Tools
+## SECTION 8: Configuration
+
+The Mailchimp connector includes several configuration options that control how it interacts with Mailchimp and Counterpoint. These settings should be reviewed carefully during setup and adjusted only when necessary. All configuration settings are managed in **Counterpoint > Connectors > Mailchimp > Mailchimp Configuration**.  
+
+**API Key**
+The API Key identifies the Mailchimp account and provides the authentication credentials required for the connector to communicate with Mailchimp. Rapid will populate this field during installation.  
+
+**Last Sync Date (UTC)**
+Displays the timestamp of the most recent connector run. This value is automatically updated after each sync and is used to determine which records have changed since the last sync.
+
+**Workgroup ID**
+Specifies which Counterpoint workgroup ID should be used when creating new customers imported from Mailchimp. This will be a special workgroup for the Mailchimp connector so that a custom CRM_MLCHMP customer template can be used if needed.
+- By default, this is set to **230** which identifies the Mailchimp connector. This value should typically remain unchanged unless otherwise instructed by Rapid.
+
+**Mailchimp Store ID and Store Name**
+Each Mailchimp connector instance is associated with a Mailchimp Store ID and Mailchimp Store Name. 
+- These store settings in Mailchimp are used for syncing up sales data labeled as coming from Counterpoint (as opposed to other sources such as a separate ecommerce integration).  
+- The default value for both fields is **Counterpoint** and typically should not be changed.
+
+**User ID**
+Defines the Counterpoint user ID that will be assigned to new customers imported from Mailchimp (only if import customers is enabled).  
+- By default, this is set to **CRM_MLCHMP**, ensuring all imported records are attributed to the designated Mailchimp connector user.
+
+**Audience ID**
+Mailchimp organizes contacts within *Audiences* (formerly known as lists).  
+- This field identifies the specific audience to which Counterpoint data will sync.  
+- The Audience ID is established during setup and should not be modified unless a new audience is being used.
+
+**Version**
+Displays the current version of the Mailchimp connector. This field updates automatically when the connector is upgraded and is provided for reference only.
+
+**Send Sales**
+When enabled, the connector pushes sales data from Counterpoint to Mailchimp, allowing sales activity to be used for audience segmentation, reporting, or targeted marketing.  
+- If disabled, only customer data will sync.
+
+**Start Date (Days)**
+Defines how far back in time sales data should be included during the **initial** sync.  
+- The default value is **-60 days**, meaning that sales from the past 60 days will be pushed to Mailchimp during the first sync. However, this value can be adjusted as desired.
+
+### Include Category, Subcategory, and Vendor
+These three options determine which product-level details are included in sales data sent to Mailchimp:
+
+- **Include Category on Product** – Sends the Counterpoint **Category Code** for each product.  
+- **Include Subcategory on Product** – Sends the **Subcategory Code** for each product.  
+- **Include Vendor on Product** – Sends the **Vendor Code** for each product.  
+
+By default, all three are enabled, allowing for robust segmentation within Mailchimp (for example, creating segments such as “Customers who purchased from Vendor = CoffeeCo”).
+
+### Import Customers
+Controls whether customers can be imported from Mailchimp into Counterpoint.  
+When set to **Yes**, customers added via Mailchimp signup forms or website integrations will automatically be created in Counterpoint during sync.  
+When set to **No**, the connector will only push data up from Counterpoint to Mailchimp.
+
+### Skip Merge Validation
+When enabled, this option allows the connector to bypass Mailchimp’s required merge field validation during sync.  
+This is useful for clients whose Mailchimp audiences or website sign-up forms contain required fields that may not be populated in Counterpoint.  
+
+Enabling **Skip Merge Validation** allows synchronization to proceed even if some non-critical fields are blank, preventing unnecessary sync failures.  
+> **Note:** This setting does not fill in missing data; it simply overrides Mailchimp’s requirement check for required fields.
+
+### Max Items to Sync
+Sets the maximum number of records (items or customers) that the connector will attempt to sync during a single run.  
+The default value is **500**.  
+This limit helps optimize performance and prevent system overload during large data transfers.
+
+### Internal Configuration Options
+Additional configuration options exist within the connector for system optimization and diagnostics.  
+These internal parameters are maintained by Rapid and should **not** be adjusted by end users.
+
+
+---
+
+## SECTION 9: Additional Mailchimp Tools
 
 ### Mailchimp Configuration
 Configuration settings for the connector can be reviewed at any time in **Counterpoint > Connectors > Mailchimp > Mailchimp Configuration**.  
