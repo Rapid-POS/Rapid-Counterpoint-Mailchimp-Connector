@@ -303,10 +303,10 @@ Configuration settings for the connector can be reviewed at any time in **Counte
 
 Initial settings are established prior to installation. To modify configuration values, consult with Rapid.
 
->>#### Skip Merge Validation (Configuration Option)
->>Some clients configure **required** merge fields in Mailchimp — often to enable required fields on a website sign-up form. When those fields are missing in Counterpoint, Mailchimp normally rejects the sync and returns an error.
->>
->>Enabling Skip Merge Validation within the Mailchimp configuration allows the connector to **bypass merge-field validation** and **force the customer to sync**. This prevents missing fields from blocking synchronization.
+>#### Skip Merge Validation (Configuration Option)
+>Some clients configure **required** merge fields in Mailchimp — often to enable required fields on a website sign-up form. When those fields are missing in Counterpoint, Mailchimp normally rejects the sync and returns an error.
+>
+>Enabling Skip Merge Validation within the Mailchimp configuration allows the connector to **bypass merge-field validation** and **force the customer to sync**. This prevents missing fields from blocking synchronization.
 
 ### Mailchimp Field Mapping
 Customer merge fields and their mappings are displayed in **Counterpoint > Connectors > Mailchimp > Mailchimp Field Mapping**.  
@@ -327,6 +327,6 @@ This action suppresses the pop-ups while keeping the messages available for late
 
 The Rapid Mailchimp Connector streamlines the exchange of customer and sales data between Counterpoint and Mailchimp, keeping audiences accurate, subscription preferences respected, and campaigns targeted.
 
-Before go-live, review audience selection, merge-field mappings, and import settings (including the “Retain Counterpoint Value if Mailchimp is Empty” flag). After deployment, monitor sync status codes and resolve any data quality issues—such as invalid emails or duplicate records—to maintain accurate data.
+Before go-live, review configuration settings and merge field mapping. After deployment, monitor sync status codes for invalid emails and report error messages as needed.
 
-For assistance with configuration changes, advanced mapping, or troubleshooting, contact Rapid Support.
+For assistance with configuration changes, mapping, or troubleshooting, contact Rapid Support.  
