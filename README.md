@@ -247,7 +247,15 @@ The **Customer Lookup** screen can also be filtered to display only customers wi
 
 This allows for quick identification and remediation of records that are queued, invalid, or have encountered sync errors.
 
-![Example of Mailchimp connector sync stat filter](./images/customer-lookup-mailchimp-stat-customer-filter.png) 
+![Example of Mailchimp connector sync stat filter](./images/customer-lookup-mailchimp-stat-customer-filter.png)  
+
+### Comparing Mailchimp ID
+
+The contact profile Mailchimp ID is part of the profile's URL. This can be compared to the Mailchimp ID stored on the custom tab of the customer record in Counterpoint (and can be manually adjusted if necessary). 
+
+![Example of Mailchimp ID on the contact profile ID](./images/mailchimp-contact-profile-mailchimp-id.png)  
+
+![Example of Mailchimp ID on the custom tab of the customer record](./images/counterpoint-customer-record-custom-tab-mailchimp-id.png)  
 
 ---
 
