@@ -360,7 +360,7 @@ When the configuration is defined, consideration should be given to how segments
 - For **broader filtering** (e.g., *Category contains “Fruit”*), combined category, subcategory, and vendor values may **all** contribute to the match.  
   - In this scenario, filtering for *contains “Fruit”* would return any record where the word “Fruit” appears in **any** portion of the combined field.
 
-Example of filtering by **CONTAINS**:
+Example of filtering by **CONTAINS**:  
 ![Example of filtering by contains](./images/segment-builder-category-contains.png)
 
 **Import Customers**  
