@@ -68,7 +68,9 @@ The connector pushes customer records from Counterpoint to Mailchimp **only** wh
 
 It is important to distinguish between **customer** information and information related to **tickets** or **items**. Mailchimp accepts a wide range of customer data but supports only limited ticket and item information.
 
-For sycning customer information, the Mailchimp connector uses **custom field mapping**, allowing nearly any field from the Counterpoint customer record to be sent to Mailchimp.
+For sycning customer information, the Mailchimp connector uses **custom field mapping**, allowing nearly any field from the Counterpoint customer record to be sent to Mailchimp. Customer merge fields and their mappings are displayed in **Counterpoint > Connectors > Mailchimp > Mailchimp Field Mapping**.  
+
+This screen shows which Counterpoint fields populate Mailchimp merge fields and how each is mapped. To adjust field mappings, consult with Rapid.
 
 ![Example of Mailchimp connector field mapping](./images/counterpoint-mailchimp-connector-field-mapping.png)  
 
@@ -147,7 +149,7 @@ Only **posted tickets** are sent to Mailchimp. When a drawer is posted, the asso
 If desired, during connector installation, previous sales history can be included during the initial sync. For example, you can choose to send sales data from the previous 60, 180, or 365 days.
 
 ### Special Note on Mailchimp's Product Category Field
-The Mailchimp connector supports a custom configuration that combines **category**, **subcategory**, and **vendor** details from Counterpoint into Mailchimp’s single **product category** field (formerly the product vendor field). Review the configuration section of this document to learn more about this functionality.
+The Mailchimp connector supports a custom configuration that combines **category**, **subcategory**, and **vendor** details from Counterpoint into Mailchimp’s single `product category` field (formerly the `product vendor` field). Review the configuration section of this document to learn more about this functionality.
 
 ---
 
@@ -169,7 +171,7 @@ It then compares the **date and time** of each contact change in Mailchimp with 
 
 - If the customer was opted-out by a user in Counterpoint, they can be re-added to Mailchimp by unchecking the **“Opt-out from marketing emails”** flag in Counterpoint.  
 - If the customer unsubscribed via a Mailchimp link (for example, using the unsubscribe link in an email), Mailchimp will **not allow a resubscribe** initiated from Counterpoint.  
-  In this case, the **“Opt-out from marketing emails”** flag in Counterpoint will automatically be reset to **opted-out** during the next connector run.
+  In this case, the `Opt-out from marketing emails` flag in Counterpoint will automatically be reset to **opted-out** during the next connector run.
 
 ### Step 3: Sync *Updated and New* Customers *to* Mailchimp
 
@@ -237,7 +239,7 @@ The sync status value indicates the current state of the customer’s record in 
 To view a customer’s sync status:
 
 1. Open the **Customer Lookup** screen in Counterpoint.  
-2. Use the **Column Designer** to add the **Mailchimp Stat** column. This column displays the current sync status value for each customer.
+2. Use the **Column Designer** to add the `Mailchimp Stat` column. This column displays the current sync status value for each customer.
 
 ![Example of Mailchimp connector sync stat column](./images/customer-lookup-mailchimp-stat-customer-examples.png)  
 
@@ -285,9 +287,9 @@ Consult with your **Business Analyst (BA)**, **Care Team**, or **Project Manager
 
 Carefully review and select the fields to import from Mailchimp into Counterpoint. Each field can be configured individually in the **Mailchimp Field Mapping** user interface. 
 
-For best results, always enable the flag **“Retain Counterpoint Value if Mailchimp is Empty.”**
+For best results, always enable the flag `Retain Counterpoint Value if Mailchimp is Empty`.
 - This setting prevents overwriting existing data in Counterpoint with blank or missing values from Mailchimp.
-- For example, if **Phone 1** is populated in Counterpoint but empty in Mailchimp, the existing phone number will be preserved during import.
+- For example, if `Phone 1` is populated in Counterpoint but empty in Mailchimp, the existing phone number will be preserved during import.
 
 ![Example of Mailchimp connector field mapping for import customers](./images/counterpoint-mailchimp-connector-field-mapping-import-retain.png) 
 
@@ -301,7 +303,7 @@ These imported customers can later be filtered and updated with correct names as
 
 ![Example of workgroup 230 CRM_MLCHMP template customer](./images/counterpoint-mailchimp-connector-template-customer-CRM_MLCHMP.png) 
 
-When **Skip Merge Validation** is **not** enabled in the configuration, these predefined `*MISSING*` values can also be sent back to Mailchimp to populate required fields that would otherwise prevent synchronization.
+When `Skip Merge Validation` is **not** enabled in the configuration, these predefined `*MISSING*` values can also be sent back to Mailchimp to populate required fields that would otherwise prevent synchronization.
 - Note: Using Skip Merge Validation is highly recommended. 
 
 ### First and Last Name vs. Business/Company Name
@@ -347,7 +349,7 @@ Displays the current version of the Mailchimp connector. This field updates auto
 When enabled, the connector pushes sales data from Counterpoint to Mailchimp, allowing sales activity to be used for audience segmentation, reporting, or targeted marketing.  
 - If disabled, only customer data will sync.
 
-### Start Date (Days)  
+### Start Date Days  
 Defines how many days of historical sales data should be pushed during the **initial** sync.  
 - The default value is **-60 days**, meaning that sales from the past 60 days will be pushed to Mailchimp during the first sync. However, this value can be adjusted as desired.
 
@@ -366,21 +368,25 @@ Because Mailchimp does not support multiple fields for these values, Rapid devel
 
 When combined, these values are sent to Mailchimp as a single entry in Mailchimp's Category field.
 
-Example of all three values sent as description: `Fruits & Vegetables/Tropical Fruits/Golden Grove Company`
+Example of all three values sent as description: `Fruits & Vegetables/Tropical Fruits/Golden Grove Company`  
+
 ![Example of all three values sent as description](./images/segment-builder-category-is-descriptions.png)  
 
-Example of all three values sent as code: `FRUIT&VEG/TROPFRUITS/GOLDENGROVE`
+Example of all three values sent as code: `FRUIT&VEG/TROPFRUITS/GOLDENGROVE`  
+
 ![Example of all three values sent as code](./images/segment-builder-category-is-codes.png)  
 
 Example of only category sent as a code: `FRUIT&VEG`  
+
 ![Example of one value sent as code](./images/segment-builder-category-is-code-single-value.png)  
 
 When the configuration is defined, consideration should be given to how segments will be created in Mailchimp:
-- For **specific filtering** (e.g., *Category = Tropical Fruits*), sending a single data type — such as only category or only subcategory — produces the most precise results.  
-- For **broader filtering** (e.g., *Category contains “Fruit”*), combined category, subcategory, and vendor values may **all** contribute to the match.  
+- For **specific filtering** (e.g., *Category **equals** Tropical Fruits*), sending a single data type — such as only category or only subcategory — produces the most precise results.  
+- For **broader filtering** (e.g., *Category **contains** “Fruit”*), combined category, subcategory, and vendor values may **all** contribute to the match.  
   - In this scenario, filtering for *contains “Fruit”* would return any record where the word “Fruit” appears in **any** portion of the combined field.
 
-Example of filtering by **CONTAINS**:  
+Example of filtering using the operator **contains**:  
+
 ![Example of filtering by contains](./images/segment-builder-category-contains.png)  
 
 ### Import Customers  
@@ -400,11 +406,6 @@ Additional internal configuration options exist within the connector. These are 
 ---
 
 ## SECTION 9: Additional Mailchimp Tools
-
-### Mailchimp Field Mapping  
-Customer merge fields and their mappings are displayed in **Counterpoint > Connectors > Mailchimp > Mailchimp Field Mapping**.  
-
-This screen shows which Counterpoint fields populate Mailchimp merge fields and how each is mapped. To adjust field mappings, consult with Rapid.
 
 ### Run Mailchimp Connector (Manual Execution)  
 The connector runs automatically every **15 minutes**. 
