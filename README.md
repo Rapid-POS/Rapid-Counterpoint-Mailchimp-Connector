@@ -128,7 +128,7 @@ Mailchimp accepts a limited amount of customer sales information. Ticket data is
 ### Items
 - Item Number  
 - Item Description (Product Title)  
-- Item Vendor (Can include concatenated values for Category + Subcategory + Vendor based on configuration options)
+- Item Category (Can include combined values for Category + Subcategory + Vendor based on configuration options)
 
 ### Additional Customer Data
 - Total Number of Tickets for that customer  
@@ -140,15 +140,8 @@ Only **posted tickets** are sent to Mailchimp. When a drawer is posted, the asso
 
 If desired, during connector installation, previous sales history can be included during the initial sync. For example, you can choose to send sales data from the previous 60, 180, or 365 days.
 
-### Item / Product Vendor Field
-Rapid has added functionality to include up to three pieces of information within the **Item/Product Vendor** field:
-- Category  
-- Subcategory  
-- Vendor
-
-**Example:**  
-If you have a category for “coffee,” you can create a Mailchimp segment using the filter:  
-> Vendor purchased contains coffee
+### Special Note on Mailchimp's Product Category Field
+The Mailchimp connector supports a custom configuration that combines **category**, **subcategory**, and **vendor** details from Counterpoint into Mailchimp’s single **product category** field (formerly the product vendor field). Review the configuration section of this document to learn more about this functionality.
 
 ---
 
@@ -336,36 +329,46 @@ When enabled, the connector pushes sales data from Counterpoint to Mailchimp, al
 Defines how far back in time sales data should be included during the **initial** sync.  
 - The default value is **-60 days**, meaning that sales from the past 60 days will be pushed to Mailchimp during the first sync. However, this value can be adjusted as desired.
 
-### Include Category, Subcategory, and Vendor
-These three options determine which product-level details are included in sales data sent to Mailchimp:
+**Product Category, Subcategory, and Vendor Type**
+Mailchimp provides only a **single product category field** (previously referred to as the *product vendor* field). Some clients choose to include additional item details — such as **category**, **subcategory**, or **vendor** — in this field to enhance reporting and segmentation in Mailchimp.
 
-- **Include Category on Product** – Sends the Counterpoint **Category Code** for each product.  
-- **Include Subcategory on Product** – Sends the **Subcategory Code** for each product.  
-- **Include Vendor on Product** – Sends the **Vendor Code** for each product.  
+Because Mailchimp does not support multiple fields for these values, Rapid developed a **workaround** that combines all three into the single **Category** field available in Mailchimp.  
+This approach allows for more flexible audience segmentation but requires awareness of how combined data impacts filtering and search behavior.
 
-By default, all three are enabled, allowing for robust segmentation within Mailchimp (for example, creating segments such as “Customers who purchased from Vendor = CoffeeCo”).
+>**Example of combined values:**
+>
+>| **Field** | **Description Example Value** | **Code Example Value** |
+>|------------|-------------------------------|------------------------|
+>| Category | `Fruits & Vegetables` | `FRUIT&VEG` |
+>| Subcategory | `Tropical Fruits` | `TROPFRUITS` |
+>| Vendor | `Golden Grove Company` | `GOLDENGROVE` |
 
-### Import Customers
+When combined, these values are sent to Mailchimp as a single entry in Mailchimp's Category field.
+
+Example of all three values sent as description: `Fruits & Vegetables/Tropical Fruits/Golden Grove Company`
+
+Example of all three values sent as code: `FRUIT&VEG/TROPFRUITS/GOLDENGROVE`
+
+Example of only category sent as a code: `FRUIT&VEG`
+
+When the configuration is defined, consideration should be given to how segments will be created in Mailchimp:
+- For **specific filtering** (e.g., *Category = Tropical Fruits*), sending a single data type — such as only category or only subcategory — produces the most precise results.  
+- For **broader filtering** (e.g., *Category contains “Fruit”*), combined category, subcategory, and vendor values may **all** contribute to the match.  
+  - In this scenario, filtering for *contains “Fruit”* would return any record where the word “Fruit” appears in **any** portion of the combined field.
+
+**Import Customers**
 Controls whether customers can be imported from Mailchimp into Counterpoint.  
-When set to **Yes**, customers added via Mailchimp signup forms or website integrations will automatically be created in Counterpoint during sync.  
-When set to **No**, the connector will only push data up from Counterpoint to Mailchimp.
+- When set to **Yes**, customers added via Mailchimp signup forms or website integrations will automatically be created in Counterpoint during sync.  
+- When set to **No**, the connector will only push data up from Counterpoint to Mailchimp.
 
-### Skip Merge Validation
-When enabled, this option allows the connector to bypass Mailchimp’s required merge field validation during sync.  
-This is useful for clients whose Mailchimp audiences or website sign-up forms contain required fields that may not be populated in Counterpoint.  
+Carefully consider how this may affect your existing Counterpoint contacts by reading the section on Importing Customers above.
 
-Enabling **Skip Merge Validation** allows synchronization to proceed even if some non-critical fields are blank, preventing unnecessary sync failures.  
-> **Note:** This setting does not fill in missing data; it simply overrides Mailchimp’s requirement check for required fields.
+**Skip Merge Validation**
+Some clients configure **required** merge fields in Mailchimp — often to enable required fields on a website sign-up form. When those fields are lacking values in Counterpoint, Mailchimp normally rejects the sync and returns an error.
+- Enabling Skip Merge Validation within the Mailchimp configuration allows the connector to **bypass merge-field validation** and **force the customer to sync**. This prevents missing fields from blocking synchronization.
 
-### Max Items to Sync
-Sets the maximum number of records (items or customers) that the connector will attempt to sync during a single run.  
-The default value is **500**.  
-This limit helps optimize performance and prevent system overload during large data transfers.
-
-### Internal Configuration Options
-Additional configuration options exist within the connector for system optimization and diagnostics.  
-These internal parameters are maintained by Rapid and should **not** be adjusted by end users.
-
+**Internal Configuration Options**
+Additional internal configuration options exist within the connector. These are primarily used by programmers to optimize performance or to assist in troubleshooting. These values should not be adjusted by end users.
 
 ---
 
@@ -375,11 +378,6 @@ These internal parameters are maintained by Rapid and should **not** be adjusted
 Configuration settings for the connector can be reviewed at any time in **Counterpoint > Connectors > Mailchimp > Mailchimp Configuration**.  
 
 Initial settings are established prior to installation. To modify configuration values, consult with Rapid.
-
->#### Skip Merge Validation (Configuration Option)
->Some clients configure **required** merge fields in Mailchimp — often to enable required fields on a website sign-up form. When those fields are missing in Counterpoint, Mailchimp normally rejects the sync and returns an error.
->
->Enabling Skip Merge Validation within the Mailchimp configuration allows the connector to **bypass merge-field validation** and **force the customer to sync**. This prevents missing fields from blocking synchronization.
 
 ### Mailchimp Field Mapping
 Customer merge fields and their mappings are displayed in **Counterpoint > Connectors > Mailchimp > Mailchimp Field Mapping**.  
