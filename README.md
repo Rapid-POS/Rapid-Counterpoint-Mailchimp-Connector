@@ -353,7 +353,7 @@ Example of all three values sent as code: `FRUIT&VEG/TROPFRUITS/GOLDENGROVE`
 ![Example of all three values sent as code](./images/segment-builder-category-is-codes.png)  
 
 Example of only category sent as a code: `FRUIT&VEG`  
-![Example of one value sent as code](./images/segment-builder-category-is-code-single-value.png)
+![Example of one value sent as code](./images/segment-builder-category-is-code-single-value.png)  
 
 When the configuration is defined, consideration should be given to how segments will be created in Mailchimp:
 - For **specific filtering** (e.g., *Category = Tropical Fruits*), sending a single data type — such as only category or only subcategory — produces the most precise results.  
@@ -361,7 +361,7 @@ When the configuration is defined, consideration should be given to how segments
   - In this scenario, filtering for *contains “Fruit”* would return any record where the word “Fruit” appears in **any** portion of the combined field.
 
 Example of filtering by **CONTAINS**:  
-![Example of filtering by contains](./images/segment-builder-category-contains.png)
+![Example of filtering by contains](./images/segment-builder-category-contains.png)  
 
 **Import Customers**  
 Controls whether customers can be imported from Mailchimp into Counterpoint.  
