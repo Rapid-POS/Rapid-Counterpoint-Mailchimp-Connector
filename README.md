@@ -74,7 +74,7 @@ For sycning customer information, the Mailchimp connector uses **custom field ma
 
 ### Below are _examples_ of customer details that can be sent to Mailchimp:
 
-1. Email 1 _(Required)_
+1. Email 1 _(Required, hard-coded, not included in the mapping table)_
 2. Customer Number *  _(Strongly recommended)_
 3. First Name  
 4. Last Name  
@@ -89,9 +89,9 @@ For sycning customer information, the Mailchimp connector uses **custom field ma
 
 \* Must be sent as **merge field column type = default.**
 
-Keep the following points in mind:
+### Keep the following points in mind:
 
-### Addresses
+#### Addresses
 
 Mailchimp requires the **full customer address** to be combined into a single field with a column type of `address`. Accordingly, **Address 1**, **Address 2**, **Address 3**, **City**, **State**, and **Zip Code** are merged and sent to Mailchimp as one field.
 
@@ -99,7 +99,7 @@ If you would like to send these fields individually (for example, **Zip Code** f
 
 When importing customer address information into Counterpoint, ensure that the merge field column type is set to `address`. Mailchimp will then separate each address component for proper import into Counterpoint.
 
-### Birthdays
+#### Birthdays
 
 If birthday information is stored in Counterpoint, it can be sent to Mailchimp as a custom field with the merge field column type set to `birthday`.  
 
@@ -108,7 +108,7 @@ Mailchimp only accepts **month and day** — not the year — so the connector r
 When importing customers from Mailchimp, birthdays are imported into Counterpoint as MM/DD/1900.  
 - The year **1900** is added automatically because Mailchimp omits the year, but Counterpoint requires it for date fields.
 
-### Calculated Fields
+#### Calculated Fields
 
 In some cases, **calculated fields** can also be sent to Mailchimp. These requests are reviewed and quoted individually by Rapid programmers.
 
