@@ -33,6 +33,7 @@ If you would like the Mailchimp connector but your system does not meet these mi
 
 ---
 
+
 ## SECTION 1: Mailchimp Audiences and Contacts
 
 The Mailchimp Connector defines how your Counterpoint customer data interacts with Mailchimp. It ensures that your Mailchimp audience and contacts stay updated so that email campaigns always use the most current customer information.
@@ -62,7 +63,9 @@ The connector pushes customer records from Counterpoint to Mailchimp **only** wh
 
 ![Example of Counterpoint customer record](./images/counterpoint-customer-record-opt-out-flag.png)  
 
+
 ---
+
 
 ## SECTION 2: Customer Information & Mailchimp Field Mapping
 
