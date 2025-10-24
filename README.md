@@ -74,11 +74,11 @@ For sycning customer information, the Mailchimp connector uses **custom field ma
 
 ### Below are _examples_ of customer details that can be sent to Mailchimp:
 
-1. Email 1 _(Required, hard-coded, not included in the mapping table)_
+1. Email 1 _(Required and hard-coded, not included in the mapping table)_
 2. Customer Number *  _(Strongly recommended)_
 3. First Name  
 4. Last Name  
-5. Full Address _(Address + City + State + Zip) _ 
+5. Full Address _(Address + City + State + Zip)_  
 6. Zip Code *  
 7. Phone 1 
 8. Customer Category  
