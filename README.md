@@ -407,6 +407,10 @@ Additional internal configuration options exist within the connector. These are 
 
 ## SECTION 9: Additional Mailchimp Tools
 
+Additional tools related to the Mailchimp connector can be accessed at **Counterpoint > Connectors > Mailchimp**.  
+
+![Example of Counterpoint Mailchimp connector menu codes](./images/counterpoint-menu-codes-mailchimp-connector.png)  
+
 ### Run Mailchimp Connector (Manual Execution)  
 The connector runs automatically every **15 minutes**. 
 
