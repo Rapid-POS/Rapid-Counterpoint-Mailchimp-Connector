@@ -171,13 +171,13 @@ It then compares the **date and time** of each contact change in Mailchimp with 
 - If the customer unsubscribed via a Mailchimp link (for example, using the unsubscribe link in an email), Mailchimp will **not allow a resubscribe** initiated from Counterpoint.  
   In this case, the **“Opt-out from marketing emails”** flag in Counterpoint will automatically be reset to **opted-out** during the next connector run.
 
-### Step 3: Sync Updated and New Customers to Mailchimp
+### Step 3: Sync *Updated and New* Customers *to* Mailchimp
 
 After processing subscription changes, the connector identifies all customers in Counterpoint who have been **added or modified** since the previous sync.  
 
 These records are pushed to Mailchimp, ensuring that existing Mailchimp contact information is updated with the latest data from Counterpoint.
 
-### Step 4: (Optional) Import Updated or New Customers from Mailchimp
+### Step 4: (Optional) Import *Updated and New* Customers *from* Mailchimp
 
 If enabled in your configuration, the connector can also **download customer updates** from Mailchimp into Counterpoint. This includes customers who have added or modified their information through a **website form**, **sign-up form**, or any other Mailchimp integration.
 
