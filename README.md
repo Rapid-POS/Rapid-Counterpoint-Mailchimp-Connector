@@ -1,5 +1,5 @@
 # Rapid POS Mailchimp Connector - Version 2.1
-Updated 10/22/2025
+Updated 10/24/2025
 
 ---
 
@@ -60,13 +60,17 @@ The connector pushes customer records from Counterpoint to Mailchimp **only** wh
 - If the **`Opt-Out of Email Marketing`** checkbox is **unchecked**, the customer is sent to Mailchimp as an **active contact** (subscribed).  
 - If the **`Opt-Out of Email Marketing`** checkbox is **checked**, the customer is sent to Mailchimp as an **opted-out contact**, meaning their email address will appear as **unsubscribed** across all Mailchimp lists.
 
+![Example of Counterpoint customer record](./images/counterpoint-customer-record-opt-out-flag.png)  
+
 ---
 
-## SECTION 2: Customer Information
+## SECTION 2: Customer Information & Mailchimp Field Mapping
 
 It is important to distinguish between **customer** information and information related to **tickets** or **items**. Mailchimp accepts a wide range of customer data but supports only limited ticket and item information.
 
 For sycning customer information, the Mailchimp connector uses **custom field mapping**, allowing nearly any field from the Counterpoint customer record to be sent to Mailchimp.
+
+![Example of Mailchimp connector field mapping](./images/counterpoint-mailchimp-connector-field-mapping.png)  
 
 ### Below are _examples_ of customer details that can be sent to Mailchimp:
 
@@ -235,7 +239,7 @@ To view a customer’s sync status:
 1. Open the **Customer Lookup** screen in Counterpoint.  
 2. Use the **Column Designer** to add the **Mailchimp Stat** column. This column displays the current sync status value for each customer.
 
-[Image Placeholder]
+![Example of Mailchimp connector sync stat column](./images/customer-lookup-mailchimp-stat-customer-examples.png)  
 
 ### Filtering by Sync Status
 
@@ -243,13 +247,15 @@ The **Customer Lookup** screen can also be filtered to display only customers wi
 
 This allows for quick identification and remediation of records that are queued, invalid, or have encountered sync errors.
 
-[Image Placeholder]
+![Example of Mailchimp connector sync stat filter](./images/customer-lookup-mailchimp-stat-customer-filter.png) 
 
 ---
 
 ## SECTION 7: Importing Customers from Mailchimp into Counterpoint
 
 The connector can be configured to import customers from Mailchimp into Counterpoint.  
+
+![Example of Mailchimp connector configuration for import customers](./images/counterpoint-mailchimp-connector-configuration-import-customers.png) 
 
 This feature is especially useful for automatically creating customer records in Counterpoint when users sign up through a **website form** or other Mailchimp-integrated source.
 
@@ -269,19 +275,23 @@ Consult with your **Business Analyst (BA)**, **Care Team**, or **Project Manager
 
 ### Determining Which Fields to Import
 
-Carefully review and select the fields to import from Mailchimp into Counterpoint. Each field can be configured individually in the "Mailchimp Field Mapping" user interface. 
+Carefully review and select the fields to import from Mailchimp into Counterpoint. Each field can be configured individually in the **Mailchimp Field Mapping** user interface. 
 
 For best results, always enable the flag **“Retain Counterpoint Value if Mailchimp is Empty.”**
 - This setting prevents overwriting existing data in Counterpoint with blank or missing values from Mailchimp.
 - For example, if **Phone 1** is populated in Counterpoint but empty in Mailchimp, the existing phone number will be preserved during import.
 
+![Example of Mailchimp connector field mapping for import customers](./images/counterpoint-mailchimp-connector-field-mapping-import-retain.png) 
+
 ### Using the Template Customer
 
-By default, the CRM_MLCHMP workgroup 230 template customer record is configured with **First Name** and **Last Name** values set to `*MISSING*`.
+By default, the workgroup 230 template customer record is set to `CRM_MLCHMP` and configured with **First Name** and **Last Name** values set to `*MISSING*`.
 
 This ensures that if these values are not provided in the Mailchimp contact, the connector will still import the email address and create the customer record in Counterpoint.  
 
 These imported customers can later be filtered and updated with correct names as needed.
+
+![Example of workgroup 230 CRM_MLCHMP template customer](./images/counterpoint-mailchimp-connector-template-customer-CRM_MLCHMP.png) 
 
 When **Skip Merge Validation** is **not** enabled in the configuration, these predefined `*MISSING*` values can also be sent back to Mailchimp to populate required fields that would otherwise prevent synchronization.
 - Note: Using Skip Merge Validation is highly recommended. 
@@ -296,42 +306,44 @@ This protects business names from being replaced with individual name data durin
 
 The Mailchimp connector includes several configuration options that control how it interacts with Mailchimp and Counterpoint. These settings should be reviewed carefully during setup and adjusted only when necessary. All configuration settings are managed in **Counterpoint > Connectors > Mailchimp > Mailchimp Configuration**.  
 
-**API Key**  
+![Example of Mailchimp connector configuration](./images/counterpoint-mailchimp-connector-configuration.png) 
+
+### API Key  
 The API Key identifies the Mailchimp account and provides the authentication credentials required for the connector to communicate with Mailchimp. Rapid will populate this field during installation.  
 
-**Last Sync Date (UTC)**  
+### Last Sync Date (UTC)  
 Displays the timestamp of the most recent connector run. This value is automatically updated after each sync and is used to determine which records have changed since the last sync.
 
-**Workgroup ID**  
+### Workgroup ID  
 Specifies which Counterpoint workgroup ID should be used when creating new customers imported from Mailchimp. This will be a special workgroup for the Mailchimp connector so that a custom CRM_MLCHMP customer template can be used if needed.
 - By default, this is set to `230` which identifies the Mailchimp connector. This value should typically remain unchanged unless otherwise instructed by Rapid.
 
-**Mailchimp Store ID and Store Name**  
+### Mailchimp Store ID and Store Name  
 Each Mailchimp connector instance is associated with a Mailchimp Store ID and Mailchimp Store Name. 
 - These store settings in Mailchimp are used for syncing sales data labeled as coming from Counterpoint (as opposed to other sources such as a separate ecommerce integration).  
 - The default value for both fields is `Counterpoint` and typically should not be changed.
 
-**User ID**  
+### User ID  
 Defines the Counterpoint user ID that will be assigned to new customers imported from Mailchimp (only if import customers is enabled).  
 - By default, this is set to `CRM_MLCHMP`, ensuring all imported records are attributed to the designated Mailchimp connector user.
 
-**Audience ID**  
+### Audience ID  
 Mailchimp organizes contacts within **Audiences** (formerly known as lists).  
 - This field identifies the specific audience to which the connector data will sync.  
 - The Audience ID is established during setup and should not be modified unless a new audience is being used.
 
-**Version**  
+### Version  
 Displays the current version of the Mailchimp connector. This field updates automatically when the connector is upgraded and is provided for reference only.
 
-**Send Sales**  
+### Send Sales  
 When enabled, the connector pushes sales data from Counterpoint to Mailchimp, allowing sales activity to be used for audience segmentation, reporting, or targeted marketing.  
 - If disabled, only customer data will sync.
 
-**Start Date (Days)**  
+### Start Date (Days)  
 Defines how many days of historical sales data should be pushed during the **initial** sync.  
 - The default value is **-60 days**, meaning that sales from the past 60 days will be pushed to Mailchimp during the first sync. However, this value can be adjusted as desired.
 
-**Product Category, Subcategory, and Vendor Type**  
+### Product Category, Subcategory, and Vendor Type  
 Mailchimp provides only a **single product category field** (previously referred to as the *product vendor* field). Some clients choose to include additional item details — such as **category**, **subcategory**, or **vendor** — in this field to enhance reporting and segmentation in Mailchimp.
 
 Because Mailchimp does not support multiple fields for these values, Rapid developed a **workaround** that combines all three into the single **Category** field available in Mailchimp. This approach allows for more flexible audience segmentation but requires awareness of how combined data impacts filtering and search behavior.
@@ -363,18 +375,18 @@ When the configuration is defined, consideration should be given to how segments
 Example of filtering by **CONTAINS**:  
 ![Example of filtering by contains](./images/segment-builder-category-contains.png)  
 
-**Import Customers**  
+### Import Customers  
 Controls whether customers can be imported from Mailchimp into Counterpoint.  
 - When set to **Yes**, customers added via Mailchimp signup forms or website integrations will automatically be created in Counterpoint during sync.  
 - When set to **No**, the connector will only push data up from Counterpoint to Mailchimp.
 
 Carefully consider how this may affect your existing Counterpoint contacts by reading the section on Importing Customers above.
 
-**Skip Merge Validation**  
+### Skip Merge Validation  
 Some clients configure **required** merge fields in Mailchimp — often to enable required fields on a website sign-up form. When those fields are lacking values in Counterpoint, Mailchimp normally rejects the sync and returns an error.
 - Enabling Skip Merge Validation within the Mailchimp configuration allows the connector to **bypass merge-field validation** and **force the customer to sync**. This prevents missing fields from blocking synchronization.
 
-**Internal Configuration Options**  
+### Internal Configuration Options  
 Additional internal configuration options exist within the connector. These are primarily used by programmers to optimize performance or to assist in troubleshooting. These values should not be adjusted by end users.
 
 ---
