@@ -1,8 +1,8 @@
 # Mailchimp Connector Video
 
----
-
 The video is posted on Rapid's YouTube channel: [**Rapid POS: Mailchimp Connector Overview**](https://www.youtube.com/watch?v=MbZKzWq3xlE)   
+
+---
   
 Below is a quick outline of the video along with timestamps for easy reference:
 
