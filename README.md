@@ -387,7 +387,9 @@ This protects business names from being replaced with individual name data durin
 
 ## SECTION 8: Configuration
 
-The Mailchimp connector includes several configuration options that control how it interacts with Mailchimp and Counterpoint. These settings should be reviewed carefully during setup and adjusted only when necessary. All configuration settings are managed in **Counterpoint > Connectors > Mailchimp > Mailchimp Configuration**.  
+The Mailchimp connector includes several configuration options that control how it interacts with Mailchimp and Counterpoint. These settings should be reviewed carefully during setup and adjusted only when necessary. All configuration settings are managed in **Counterpoint > Connectors > Mailchimp > Mailchimp Configuration**. 
+
+![Mailchimp Connector Menu Code for Configuation](./images/counterpoint-mailchimp-menu-codes-configuration.png) 
 
 ![Example of Mailchimp connector configuration](./images/counterpoint-mailchimp-connector-configuration.png) 
 
