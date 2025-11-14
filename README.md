@@ -23,7 +23,7 @@ If you would like the Mailchimp connector but your system does not meet these mi
 - [Section 1: Mailchimp Audiences and Contacts](#section-1-mailchimp-audiences-and-contacts)
 - [Section 2: Customer Information](#section-2-customer-information)
 - [Section 3: Ticket & Item Information](#section-3-ticket--item-information)
-- [Coming soon! Mailchimp Customer Tags](#coming-soon!-mailchimp-customer-tags)
+- Coming soon! Mailchimp Customer Tags
 - [Section 4: Connector Sync Process](#section-4-connector-sync-process)
 - [Section 5: Common Customer Sync Questions](#section-5-common-customer-sync-questions)
 - [Section 6: Troubleshooting and Sync Status Codes](#section-6-troubleshooting-and-sync-status-codes)
@@ -152,49 +152,70 @@ If desired, during connector installation, previous sales history can be include
 ### Special Note on Mailchimp's Product Category Field
 The Mailchimp connector supports a custom configuration that combines **category**, **subcategory**, and **vendor** details from Counterpoint into Mailchimp’s single `product category` field (formerly the `product vendor` field). Review the configuration section of this document to learn more about this functionality.
 
-
 ---
 
 ## Coming soon! Mailchimp Customer Tags
 
-Mailchimp tags are simple labels that help organize and group contacts within an audience. Tags can be used to identify customers who meet specific criteria, such as earning a certain number of loyalty points or reaching a spending threshold.
+Mailchimp tags are simple labels that help organize and group contacts within an audience. Tags can be used to identify customers who meet specific criteria, such as earning a particular number of loyalty points or reaching a defined spending threshold.    
 
-![Mailchimp Tag Mapping Menu Code](./images/counterpoint-mailchimp-menu-codes-tag-mapping.png)
-
-Once a tag is applied to a contact, it can be used in Mailchimp to:
+Once a tag is applied to a contact, it can be used in Mailchimp to:  
 
 - Send campaigns directly to tagged contacts  
 - Build segments based on tags  
 - Trigger automated journeys when a tag is added  
 
-The Mailchimp connector can automatically apply tags based on customer information stored in Counterpoint. During each sync, the connector evaluates customer data and determines which tags should apply based on a **custom condition filter** created for each tagging rule.
+### Mailchimp Tag Mapping
 
-To configure automated tags, begin by defining the criteria that determine which customers should receive each tag. Examples include:
+The Mailchimp connector can automatically apply tags based on customer information stored in Counterpoint. During each sync, the connector evaluates each customer and determines which tags should apply based on a **custom condition filter** created for that specific rule.  
 
-- Applying a tag for customers with more than 100 loyalty points  
-- Applying a tag for customers whose total spending exceeds $1,000
+Examples of tagging criteria include:
 
-Once the tagging criteria are defined, Rapid will review the requirements and provide a quote. After approval, a programmer will create the condition filter and add it to the Mailchimp Tag Mapping table.
+- Assigning a tag to customers with more than 100 loyalty points  
+- Assigning a tag to customers whose total spending exceeds $1,000 
 
-Each condition filter checks the customer’s data in Counterpoint and determines whether the criteria are met. When the condition is satisfied, the tag is applied in Mailchimp. Each automated tag requires its own condition filter, written according to the rules provided for that tag. For example: 
+Once the tagging criteria are defined, Rapid will review the requirements and provide a quote. After approval, a programmer will create the condition filter and add it to the Mailchimp Tag Mapping table.  
+
+![Mailchimp Tag Mapping Menu Code](./images/counterpoint-mailchimp-menu-codes-tag-mapping.png)
+
+Each condition filter checks the customer’s data in Counterpoint and evaluates whether the defined criteria are met. When the condition is satisfied, the connector applies the corresponding tag in Mailchimp. Each automated tag requires its own condition filter, written according to the rules provided for that tag. For example: 
 
 SELECT TOP 1 1 FROM AR_CUST I (NOLOCK) WHERE I.CUST_NO = '@CUST_NO' AND EXISTS (SELECT H.CUST_NO, SUM(SUB_TOT) SUB_TOT FROM PS_TKT_HIST (NOLOCK) H WHERE I.CUST_NO = H.CUST_NO GROUP BY H.CUST_NO HAVING SUM(SUB_TOT) > 1000)
 
 ![Mailchimp Customer Tag Mapping Example of Sales Over 1000](./images/counterpoint-mailchimp-tag-mapping-example-sales-over-1000.png)
 
-Once applied, tags become available within the Mailchimp audience and can be used for segmentation or automations. For example, a tag such as **Sales > $1,000** could be used to trigger a VIP automation in Mailchimp.
+Once applied, tags become available in Mailchimp audience and can be used for segmentation or automations. For example, a tag such as **Sales > $1,000** could be used to trigger a VIP automation in Mailchimp.
 
-Multiple automated tags can be configured. Viewing the Mailchimp Tag Mapping table in table view displays the full list of configured tag rules.
+Multiple automated tags may be configured. Viewing the Mailchimp Tag Mapping table in table view displays the full list of configured tag rules:
 
 ![Mailchimp Customer Tag Mapping Example List](./images/counterpoint-mailchimp-tag-mapping-example-list.png)
 
-When a customer qualifies for a new tag, a record is created in the **Mailchimp Customer Tags** table. This table displays tags waiting to be synced, and each record remains visible until processed by the connector.
+### Mailchimp Customer Tags
+
+When a customer qualifies for a new tag, a record is created in the **Mailchimp Customer Tags** table. This table displays tags waiting to be synced, and each record remains visible until it is processed by the connector.
 
 ![Mailchimp Customer Tags Menu Code](./images/counterpoint-mailchimp-menu-codes-customer-tags.png)
 
 ![Mailchimp Customer Tags Example](./images/counterpoint-mailchimp-customer-tags-example.png)
 
-Please contact Rapid if assistance is needed in defining tagging criteria or if a quote is desired for creating custom condition filters.
+### Tag Removal
+
+The connector pushes tags **from Counterpoint into Mailchimp**, but does **not** remove tags. However, Mailchimp automations can be used to remove outdated tags.
+
+For example, consider a tagging structure based on loyalty point tiers:
+
+- **Loyalty Points 100** (100–199 points)  
+- **Loyalty Points 200** (200–299 points)  
+- **Loyalty Points 300** (300+ points)  
+
+If a customer’s point balance changes and they move into a different tier, older tags may need to be removed. This can be managed with Mailchimp automations that remove tags when a new tier-based tag is applied.
+
+The example below shows how tags for levels 300 and 200 are automatically removed when a customer receives the 100-level tag:
+
+![Mailchimp Customer Tags Automation for Removal](./images/mailchimp-customer-tags-automation-for-removal.png)
+
+### Configuring Mailchimp Tag Mapping
+
+Please contact Rapid for assistance in defining tagging criteria or if a quote is needed for creating custom condition filters.
 
 ---
 
