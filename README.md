@@ -186,7 +186,7 @@ SELECT TOP 1 1 FROM AR_CUST I (NOLOCK) WHERE I.CUST_NO = '@CUST_NO' AND EXISTS (
 
 ![Mailchimp Customer Tag Mapping Example of Sales Over 1000](./images/counterpoint-mailchimp-tag-mapping-example-sales-over-1000.png)
 
-Once applied, tags become available in Mailchimp audience and can be used for segmentation or automations. For example, a tag such as **Sales > $1,000** could be used to trigger a VIP automation in Mailchimp.
+Once applied, tags become available in Mailchimp and can be used for segmentation or automations. For example, a tag such as **Sales > $1,000** could be used to trigger a VIP automation in Mailchimp.
 
 ![Mailchimp Customer Tag Example Sales Over 1000](./images/mailchimp-customer-tag-example-sales-over-1000.png) 
 
