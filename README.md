@@ -484,17 +484,17 @@ Additional internal configuration options exist within the connector. These are 
 
 Additional tools related to the Mailchimp connector can be accessed at **Counterpoint > Connectors > Mailchimp**.  
 
-![Example of Counterpoint Mailchimp connector menu codes](./images/counterpoint-menu-codes-mailchimp-connector.png)  
+![Mailchimp Mark All Messages as Read Menu Code](./images/counterpoint-mailchimp-menu-codes-mark-all-messages-as-read.png)  
+
+### Mark All Mailchimp Messages as Read  
+If frequent pop-up alerts related to Mailchimp appear in Counterpoint, select **Mark All Mailchimp Messages as Read**.  
+
+This action suppresses the pop-ups while keeping the messages available for later review.  
 
 ### Run Mailchimp Connector (Manual Execution)  
 The connector runs automatically every **15 minutes**. 
 
 For manual execution, select **Run Mailchimp Connector** in Counterpoint. A command window (black box) appears while the process runs; do not close it—the window closes automatically when the run completes.
-
-### Mark All Mailchimp Messages as Read  
-If frequent pop-up alerts related to Mailchimp appear in Counterpoint, select **Mark All Mailchimp Messages as Read**.  
-
-This action suppresses the pop-ups while keeping the messages available for later review.
 
 ## Conclusion  
 
