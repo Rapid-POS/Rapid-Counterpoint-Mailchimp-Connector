@@ -19,17 +19,19 @@ If you would like the Mailchimp connector but your system does not meet these mi
 
 ## Table of Contents
 
+## Table of Contents
+
 - [Minimum System Requirements](#minimum-system-requirements)
-- [Section 1: Mailchimp Audiences and Contacts](#section-1-mailchimp-audiences-and-contacts)
-- [Section 2: Customer Information](#section-2-customer-information)
-- [Section 3: Ticket & Item Information](#section-3-ticket--item-information)
-- [Section 4: Mailchimp Customer Tags](#section-4-mailchimp-customer-tags)
-- [Section 5: Connector Sync Process](#section-4-connector-sync-process)
-- [Section 6: Common Customer Sync Questions](#section-5-common-customer-sync-questions)
-- [Section 7: Troubleshooting and Sync Status Codes](#section-6-troubleshooting-and-sync-status-codes)
-- [Section 8: Importing Customers from Mailchimp into Counterpoint](#section-7-importing-customers-from-mailchimp-into-counterpoint)
-- [Section 9: Configuration](#section-8-configuration)
-- [Section 10: Additional Mailchimp Tools](#section-9-additional-mailchimp-tools)
+- [SECTION 1: Mailchimp Audiences and Contacts](#section-1-mailchimp-audiences-and-contacts)
+- [SECTION 2: Customer Information & Mailchimp Field Mapping](#section-2-customer-information--mailchimp-field-mapping)
+- [SECTION 3: Ticket & Item Information](#section-3-ticket--item-information)
+- [SECTION 4: Mailchimp Customer Tags](#section-4-mailchimp-customer-tags)
+- [SECTION 5: Connector Sync Process](#section-5-connector-sync-process)
+- [SECTION 6: Common Customer Sync Questions](#section-6-common-customer-sync-questions)
+- [SECTION 7: Troubleshooting and Sync Status Codes](#section-7-troubleshooting-and-sync-status-codes)
+- [SECTION 8: Importing Customers from Mailchimp into Counterpoint](#section-8-importing-customers-from-mailchimp-into-counterpoint)
+- [SECTION 9: Configuration](#section-9-configuration)
+- [SECTION 10: Additional Mailchimp Tools](#section-10-additional-mailchimp-tools)
 - [Conclusion](#conclusion)
 
 ---
