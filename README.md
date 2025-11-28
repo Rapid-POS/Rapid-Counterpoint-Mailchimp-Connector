@@ -1,6 +1,5 @@
-# Rapid POS Mailchimp Connector - Version 2.1 
-### *(Version 2.2 coming soon!)*
-Updated 11/13/2025
+# Rapid POS Mailchimp Connector - Version 2.2
+Updated 11/28/2025
 
 ---
 
@@ -24,13 +23,13 @@ If you would like the Mailchimp connector but your system does not meet these mi
 - [Section 1: Mailchimp Audiences and Contacts](#section-1-mailchimp-audiences-and-contacts)
 - [Section 2: Customer Information](#section-2-customer-information)
 - [Section 3: Ticket & Item Information](#section-3-ticket--item-information)
-- Coming soon! Mailchimp Customer Tags
-- [Section 4: Connector Sync Process](#section-4-connector-sync-process)
-- [Section 5: Common Customer Sync Questions](#section-5-common-customer-sync-questions)
-- [Section 6: Troubleshooting and Sync Status Codes](#section-6-troubleshooting-and-sync-status-codes)
-- [Section 7: Importing Customers from Mailchimp into Counterpoint](#section-7-importing-customers-from-mailchimp-into-counterpoint)
-- [Section 8: Configuration](#section-8-configuration)
-- [Section 9: Additional Mailchimp Tools](#section-9-additional-mailchimp-tools)
+- [Section 4: Mailchimp Customer Tags](#section-4-mailchimp-customer-tags)
+- [Section 5: Connector Sync Process](#section-4-connector-sync-process)
+- [Section 6: Common Customer Sync Questions](#section-5-common-customer-sync-questions)
+- [Section 7: Troubleshooting and Sync Status Codes](#section-6-troubleshooting-and-sync-status-codes)
+- [Section 8: Importing Customers from Mailchimp into Counterpoint](#section-7-importing-customers-from-mailchimp-into-counterpoint)
+- [Section 9: Configuration](#section-8-configuration)
+- [Section 10: Additional Mailchimp Tools](#section-9-additional-mailchimp-tools)
 - [Conclusion](#conclusion)
 
 ---
@@ -157,7 +156,7 @@ The Mailchimp connector supports a custom configuration that combines **category
 
 ---
 
-## Coming soon! Mailchimp Customer Tags
+## SECTION 4: Mailchimp Customer Tags
 
 Mailchimp tags are simple labels that help organize and group contacts within an audience. Tags can be used to identify customers who meet specific criteria, such as earning a particular number of loyalty points or reaching a defined spending threshold.    
 
@@ -210,13 +209,14 @@ The connector pushes tags **from Counterpoint into Mailchimp**, but does **not**
 
 For example, consider a tagging structure based on loyalty point tiers:
 
+- **Loyalty Points Less than 100** (less than 100 points)
 - **Loyalty Points 100** (100–199 points)  
 - **Loyalty Points 200** (200–299 points)  
 - **Loyalty Points 300** (300+ points)  
 
 If a customer’s point balance changes and they move into a different tier, older tags may need to be removed. This can be managed with Mailchimp automations that remove tags when a new tier-based tag is applied.
 
-The example below shows how tags for levels 300 and 200 are automatically removed when a customer receives the 100-level tag:
+The example below shows how tags for levels **300**, **200**, and **less than 100** are automatically removed when a customer receives the 100-level tag:
 
 ![Mailchimp Customer Tags Automation for Removal](./images/mailchimp-customer-tags-automation-for-removal.png)
 
@@ -226,7 +226,7 @@ Please contact Rapid for assistance in defining tagging criteria or if a quote i
 
 ---
 
-## SECTION 4: Connector Sync Process
+## SECTION 5: Connector Sync Process
 
 The Mailchimp Connector runs automatically every **15 minutes** to keep customer data synchronized between Counterpoint and Mailchimp.
 
@@ -261,7 +261,7 @@ If enabled in your configuration, the connector can also **download customer upd
 
 ---
 
-## SECTION 5: Common Customer Sync Questions
+## SECTION 6: Common Customer Sync Questions
 
 Occasionally, two customers in Counterpoint may share the same email address, or a customer’s email address may be updated. The following explains how the connector handles various situations.
 
@@ -291,7 +291,7 @@ However, if the newly entered email address in Counterpoint already exists in Ma
 
 ---
 
-## SECTION 6: Troubleshooting and Sync Status Codes
+## SECTION 7: Troubleshooting and Sync Status Codes
 
 If a customer record is not syncing to Mailchimp, it is important to check their **Mailchimp Sync Status** in Counterpoint.  
 
@@ -334,7 +334,7 @@ The contact profile Mailchimp ID is part of the profile's URL. This can be compa
 
 ---
 
-## SECTION 7: Importing Customers from Mailchimp into Counterpoint
+## SECTION 8: Importing Customers from Mailchimp into Counterpoint
 
 The connector can be configured to import customers from Mailchimp into Counterpoint.  
 
@@ -385,7 +385,7 @@ When importing data from Mailchimp, if an existing customer record in Counterpoi
 
 This protects business names from being replaced with individual name data during the import process.
 
-## SECTION 8: Configuration
+## SECTION 9: Configuration
 
 The Mailchimp connector includes several configuration options that control how it interacts with Mailchimp and Counterpoint. These settings should be reviewed carefully during setup and adjusted only when necessary. All configuration settings are managed in **Counterpoint > Connectors > Mailchimp > Mailchimp Configuration**. 
 
@@ -480,7 +480,7 @@ Additional internal configuration options exist within the connector. These are 
 
 ---
 
-## SECTION 9: Additional Mailchimp Tools
+## SECTION 10: Additional Mailchimp Tools
 
 Additional tools related to the Mailchimp connector can be accessed at **Counterpoint > Connectors > Mailchimp**.  
 
