@@ -1,5 +1,5 @@
 
-# Rapid POS Mailchimp Connector v2.1.0 Release Notes
+# Rapid POS Mailchimp Connector v2.01.00 Release Notes
 
 _Release Date: June 2024_
 
