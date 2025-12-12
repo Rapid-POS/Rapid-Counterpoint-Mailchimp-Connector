@@ -1,6 +1,6 @@
 # Coming soon with enhanced tag functionality! 
 
-**Rapid POS Mailchimp Connector v2.02.00 Release Notes**
+**Rapid POS Mailchimp Connector v2.02.00 Release Notes** 
 
 _Release Date: TBD_ - Targeting January 2026
 
