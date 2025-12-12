@@ -1,5 +1,5 @@
 # Rapid POS Mailchimp Connector - Version 2.2
-Updated 11/28/2025
+Updated 12/11/2025
 
 ---
 
@@ -10,8 +10,10 @@ The Rapid Mailchimp Connector automatically syncs customer and sales data from C
 ---
 
 ## Minimum System Requirements:
-- Minimum Counterpoint version: **8.5.6.2**
-- Minimum SQL Server version: **2016**
+- Minimum Counterpoint version: **8.5.6.2**  
+- Minimum SQL Server version: **2016**  
+- Minimum Windows Server version: **2016**  
+- Minimum PowerShell version: **5.1**  
 
 If you would like the Mailchimp connector but your system does not meet these minimum requirements, please consult your Care Team Lead (vCIO) for an upgrade quote.
 
