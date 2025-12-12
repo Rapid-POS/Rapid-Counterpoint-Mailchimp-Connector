@@ -18,6 +18,9 @@ _Release Date: TBD_ - Targeting January 2026
 - Tag removal can be handled using **Mailchimp Automations** (flows).  
 - Tag configuration requires setup assistance from Rapid - billed at T&M rates.
 
+For a detailed guide on Mailchimp Customer Tags as they relate to the Counterpoint to Mailchimp connector, please visit:
+https://github.com/Rapid-POS/Rapid-Counterpoint-Mailchimp-Connector/blob/main/README.md#section-4-mailchimp-customer-tags
+
 ## Bug Fixes and Performance Enhancements
 
 _To be determined_
