@@ -21,8 +21,6 @@ If you would like the Mailchimp connector but your system does not meet these mi
 
 ## Table of Contents
 
-## Table of Contents
-
 - [Minimum System Requirements](#minimum-system-requirements)
 - [SECTION 1: Mailchimp Audiences and Contacts](#section-1-mailchimp-audiences-and-contacts)
 - [SECTION 2: Customer Information & Mailchimp Field Mapping](#section-2-customer-information--mailchimp-field-mapping)
