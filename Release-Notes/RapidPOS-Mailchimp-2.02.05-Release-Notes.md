@@ -28,15 +28,13 @@ https://github.com/Rapid-POS/Rapid-Counterpoint-Mailchimp-Connector/blob/main/RE
 
 ## Bug Fixes and Performance Enhancements
 
-### Updated Install Script for MailChimp Customer's Up Field Mapping Table
-
-Adjusted the install script for the `USER_MAILCHIMP_CUSTOM_FIELD_MAPPING` table.  
-
-Added `ADDRESS` as one of the default fields in the custom field mapping.  
+- **Updated Install Script for MailChimp Customer's Up Field Mapping Table**
+  - Adjusted the install script for the `USER_MAILCHIMP_CUSTOM_FIELD_MAPPING` table  
+  - Added `ADDRESS` as one of the default fields in the custom field mapping  
 
 ---
 
-### Mailchimp Customer Status View
+### Updated Mailchimp Customer Status View
 
 The Mailchimp Customer Status View displays the synchronization status of customer records:
 
@@ -47,9 +45,6 @@ The Mailchimp Customer Status View displays the synchronization status of custom
 | 5      | Invalid Email| 120    |
 | 9      | Error syncing| 3      |
 
----
-
-### Updated Mailchimp Customer Status View
 
 Displays a summary table showing:
 
@@ -59,26 +54,20 @@ Displays a summary table showing:
 ---
 
 ### Customer Filtering for Mailchimp Sync
-
-Added customer filtering functionality to limit which customers are eligible to sync to Mailchimp.  
-
-This allows greater control over which customer records are transmitted to Mailchimp.
-
+  - Added customer filtering functionality to limit which customers are eligible to sync to Mailchimp  
+  - Provides greater control over which customer records are transmitted to Mailchimp
+ 
 ---
 
 ### Package Updates and Cleanup
-
-Upgraded packages to the latest supported versions.  
-
-Removed obsolete packages to improve maintainability and stability.
-
+  - Upgraded packages to the latest supported versions  
+  - Removed obsolete packages to improve maintainability and stability
+ 
 ---
 
 ### Extended Data Insert Logic Enhancement
-
-Added logic to insert extended data records if they do not already exist.  
-
-This prevents unnecessary resyncing of historical order details.
+  - Added logic to insert extended data records if they do not already exist  
+  - Prevents unnecessary resyncing of historical order details  
 
 ---
 
