@@ -38,13 +38,16 @@ https://github.com/Rapid-POS/Rapid-Counterpoint-Mailchimp-Connector/blob/main/RE
 
 The Mailchimp Customer Status View displays the synchronization status of customer records:
 
+- If no customer records exist for a given status, that status will not appear in the table  
+- The table can be refreshed at any time to display the most up-to-date information  
+- Best viewed in table view  
+
 | Status | Description   | Count |
 |--------|--------------|--------|
 | 0      | Synched      | 630    |
 | 1      | Pending Sync | 23     |
 | 5      | Invalid Email| 120    |
 | 9      | Error syncing| 3      |
-
 
 Displays a summary table showing:
 
@@ -75,6 +78,4 @@ Displays a summary table showing:
 
 Enhanced sync logic to allow customer email records marked as non-subscribed to be updated to subscribed when appropriate.  
 
-- If no customer records exist for a given status, that status will not appear in the table  
-- The table can be refreshed at any time to display the most up-to-date information  
-- Best viewed in table view  
+
