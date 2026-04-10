@@ -16,7 +16,7 @@ Introduced the **Mailchimp Item Field Mapping module** to support dynamic assign
 ## Bug Fixes and Performance Enhancements
 
 ### Subscription Status Selection Fix
-- Resolved an issue with correctly selecting and applying **Subscribe status**
+- Resolved an issue where the subscription status defaulted incorrectly to **Subscribed.** The update ensures accurate selection and application of the **Subscribe** status, with proper handling of both subscribed and unsubscribed states. 
 
 ### Customer Form Restrictions
 - Disabled the ability to copy from the **Mailchimp ID field** within the customer form
