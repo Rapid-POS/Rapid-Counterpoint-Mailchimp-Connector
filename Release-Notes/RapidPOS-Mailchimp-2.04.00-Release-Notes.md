@@ -6,6 +6,9 @@
 
 ### Mailchimp Configuration Lookup Day
 Added a lookup day setting in Mailchimp configuration for customer profile downloads.
+Go to **Connectors > MailChimp > MailChimp Configuration**
+
+<img width="558" height="686" alt="image" src="https://github.com/user-attachments/assets/a882034b-ba5c-491f-8311-d3cbc6cd2563" />
 
 - Provides greater flexibility in controlling customer profile retrieval periods
 - Helps optimize download ranges and synchronization behavior
