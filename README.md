@@ -73,7 +73,7 @@ It is important to distinguish between **customer** information and information 
 
 For sycning customer information, the Mailchimp connector uses **custom field mapping**, allowing nearly any field from the Counterpoint customer record to be sent to Mailchimp. Customer merge fields and their mappings are displayed in **Counterpoint > Connectors > Mailchimp > Mailchimp Field Mapping**.  
 
-![Mailchimp Menu Code for Field Mapping](./images/counterpoint-mailchimp-menu-codes-field-mapping.png)  
+<img width="1687" height="213" alt="image" src="https://github.com/user-attachments/assets/0055eb47-aca2-4727-9db2-41c944523b22" />
 
 This screen shows which Counterpoint fields populate Mailchimp merge fields and how each is mapped. To adjust field mappings, consult with Rapid.
 
@@ -120,7 +120,58 @@ When importing customers from Mailchimp, birthdays are imported into Counterpoin
 In some cases, **calculated fields** can also be sent to Mailchimp. These requests are reviewed and quoted individually by Rapid programmers.
 
 Example of a calculated field:
-- The date a customer last purchased a product in a specific category.  
+- The date a customer last purchased a product in a specific category.
+- 
+## Mailchimp Customers
+
+<img width="1695" height="217" alt="image" src="https://github.com/user-attachments/assets/47bb497b-3d84-4510-83d7-c2dd8b959928" />
+
+The Mailchimp Connector adds a **Mailchimp Customers** button within Counterpoint, providing access to Mailchimp-specific customer fields directly from the Counterpoint customer record.
+
+The email address on the Mailchimp customer record is populated from **Email Address 1** on the Counterpoint customer record.
+
+Depending on configuration, the SMS phone number is populated from either **Phone 1** or **Mobile Phone 1** on the Counterpoint customer record, **only when it meets the following criteria**:
+
+* Contains **exactly 10 numeric digits**
+* Does **not** include letters
+
+If the configured phone number field contains more than or fewer than 10 digits, or if it includes letters, the SMS number will **not** be pushed to Mailchimp.
+
+---
+
+## Accessing Mailchimp Customer Records
+
+All Mailchimp customer records can also be accessed from:
+
+**Connectors > Mailchimp > Mailchimp Customer**
+
+<img width="1695" height="217" alt="image" src="https://github.com/user-attachments/assets/21dc110e-2f75-4dc6-a770-e386627dc765" />
+
+This view allows records to be displayed in **table view**, where filters can be applied to review customers based on their current sync status.
+
+---
+
+## Mailchimp Sync Status Codes
+
+Each Mailchimp customer record includes a sync status value indicating its current state in the synchronization process.
+
+| Status Code | Description                                                      |
+| ----------- | ---------------------------------------------------------------- |
+| `0`         | Fully synced; nothing pending                                    |
+| `1`         | Recently created or updated; will sync on the next connector run |
+| `2`         | Profile is currently in the active sync queue                    |
+| `5`         | Invalid email address                                            |
+| `6`         | Invalid SMS number                                               |
+| `9`         | Sync error; requires remediation before it can be re-synced      |
+
+---
+
+## Add-on-the-Fly Mailchimp Customer Form (Optional)
+
+An optional **Mailchimp Customers Add-on-the-Fly** form can be configured to provide cashiers with limited access to Mailchimp customer records.
+
+If you are interested in a customized add-on-the-fly form for your company, please contact Rapid for pricing and availability.
+
 
 ---
 
@@ -178,8 +229,7 @@ Examples of tagging criteria include:
 - Assigning a tag to customers whose total spending exceeds $1,000 
 
 Once the tagging criteria are defined, Rapid will review the requirements and provide a quote. After approval, a programmer will create the condition filter and add it to the Mailchimp Tag Mapping table.  
-
-![Mailchimp Tag Mapping Menu Code](./images/counterpoint-mailchimp-menu-codes-tag-mapping.png)
+<img width="1677" height="229" alt="image" src="https://github.com/user-attachments/assets/d65a10d7-8cf2-4adf-ad71-187f2b1a5565" />
 
 Each condition filter checks the customer’s data in Counterpoint and evaluates whether the defined criteria are met. When the condition is satisfied, the connector applies the corresponding tag in Mailchimp. Each automated tag requires its own condition filter, written according to the rules provided for that tag. For example: 
 
@@ -201,7 +251,7 @@ Multiple automated tags may be configured. Viewing the Mailchimp Tag Mapping tab
 
 When a customer qualifies for a new tag, a record is created in the **Mailchimp Customer Tags** table. This table displays tags waiting to be synced, and each record remains visible until it is processed by the connector.
 
-![Mailchimp Customer Tags Menu Code](./images/counterpoint-mailchimp-menu-codes-customer-tags.png)
+<img width="1690" height="219" alt="image" src="https://github.com/user-attachments/assets/a09978db-1dab-458a-bbbc-8a0541f7e24a" />
 
 ![Mailchimp Customer Tags Example](./images/counterpoint-mailchimp-customer-tags-example.png)
 
@@ -393,7 +443,7 @@ This protects business names from being replaced with individual name data durin
 
 The Mailchimp connector includes several configuration options that control how it interacts with Mailchimp and Counterpoint. These settings should be reviewed carefully during setup and adjusted only when necessary. All configuration settings are managed in **Counterpoint > Connectors > Mailchimp > Mailchimp Configuration**. 
 
-![Mailchimp Connector Menu Code for Configuation](./images/counterpoint-mailchimp-menu-codes-configuration.png) 
+<img width="1681" height="213" alt="image" src="https://github.com/user-attachments/assets/23b2851f-42a7-481b-9595-8b66def7e517" />
 
 For clients who use **multiple Mailchimp accounts**, a separate configuration record will exist for each account.
 
@@ -666,7 +716,7 @@ Additional internal configuration options exist within the connector. These are 
 
 Additional tools related to the Mailchimp connector can be accessed at **Counterpoint > Connectors > Mailchimp**.  
 
-![Mailchimp Mark All Messages as Read Menu Code](./images/counterpoint-mailchimp-menu-codes-mark-all-messages-as-read.png)  
+<img width="1678" height="215" alt="image" src="https://github.com/user-attachments/assets/91d387b4-7ad7-49e0-91ed-edf984cf1a00" />
 
 ### Mark All Mailchimp Messages as Read  
 If frequent pop-up alerts related to Mailchimp appear in Counterpoint, select **Mark All Mailchimp Messages as Read**.  
