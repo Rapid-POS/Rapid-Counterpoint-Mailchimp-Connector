@@ -36,7 +36,30 @@ If you would like the Mailchimp connector but your system does not meet these mi
 
 ---
 
-## SECTION 1: Mailchimp Audiences and Contacts
+## SECTION 1: Mailchimp Customer Records
+
+The Mailchimp Connector adds a **Mailchimp Customers** button within Counterpoint, providing access to Mailchimp-specific customer fields directly from the Counterpoint customer record.
+
+<img width="1001" height="201" alt="image" src="https://github.com/user-attachments/assets/7f2dcfdb-dba5-46de-89a7-f76a7cf723bb" />
+
+
+
+
+The email address on the Mailchimp customer record is populated from **Email Address 1** on the Counterpoint customer record.
+
+Depending on configuration, the SMS phone number is populated from either **Phone 1** or **Mobile Phone 1** on the Counterpoint customer record, **only when it meets the following criteria**:
+
+* Contains **exactly 10 numeric digits**
+* Does **not** include letters
+
+If the configured phone number field contains more than or fewer than 10 digits, or if it includes letters, the SMS number will **not** be pushed to Mailchimp.
+
+<img width="985" height="691" alt="image" src="https://github.com/user-attachments/assets/ed57b5a6-0a77-4479-aee2-fb9459c0db0b" />
+
+
+
+
+## SECTION 2: Mailchimp Audiences and Contacts
 
 The Mailchimp Connector defines how your Counterpoint customer data interacts with Mailchimp. It ensures that your Mailchimp audience and contacts stay updated so that email campaigns always use the most current customer information.
 
@@ -67,7 +90,7 @@ The connector pushes customer records from Counterpoint to Mailchimp **only** wh
 
 ---
 
-## SECTION 2: Customer Information & Mailchimp Field Mapping
+## SECTION 3: Customer Information & Mailchimp Field Mapping
 
 It is important to distinguish between **customer** information and information related to **tickets** or **items**. Mailchimp accepts a wide range of customer data but supports only limited ticket and item information.
 
@@ -121,21 +144,6 @@ In some cases, **calculated fields** can also be sent to Mailchimp. These reques
 
 Example of a calculated field:
 - The date a customer last purchased a product in a specific category.
-- 
-## Mailchimp Customers
-
-<img width="1695" height="217" alt="image" src="https://github.com/user-attachments/assets/47bb497b-3d84-4510-83d7-c2dd8b959928" />
-
-The Mailchimp Connector adds a **Mailchimp Customers** button within Counterpoint, providing access to Mailchimp-specific customer fields directly from the Counterpoint customer record.
-
-The email address on the Mailchimp customer record is populated from **Email Address 1** on the Counterpoint customer record.
-
-Depending on configuration, the SMS phone number is populated from either **Phone 1** or **Mobile Phone 1** on the Counterpoint customer record, **only when it meets the following criteria**:
-
-* Contains **exactly 10 numeric digits**
-* Does **not** include letters
-
-If the configured phone number field contains more than or fewer than 10 digits, or if it includes letters, the SMS number will **not** be pushed to Mailchimp.
 
 ---
 
@@ -175,7 +183,7 @@ If you are interested in a customized add-on-the-fly form for your company, plea
 
 ---
 
-## SECTION 3: Ticket & Item Information
+## SECTION 4: Ticket & Item Information
 
 Mailchimp accepts a limited amount of customer sales information. Ticket data is sent to Mailchimp’s **Ecommerce** fields, as Mailchimp does not provide dedicated fields for POS data.
 
@@ -209,7 +217,7 @@ The Mailchimp connector supports a custom configuration that combines **category
 
 ---
 
-## SECTION 4: Mailchimp Customer Tags
+## SECTION 5: Mailchimp Customer Tags
 
 Mailchimp tags are simple labels that help organize and group contacts within an audience. Tags can be used to identify customers who meet specific criteria, such as earning a particular number of loyalty points or reaching a defined spending threshold.    
 
@@ -278,7 +286,7 @@ Please contact Rapid for assistance in defining tagging criteria or if a quote i
 
 ---
 
-## SECTION 5: Connector Sync Process
+## SECTION 6: Connector Sync Process
 
 The Mailchimp Connector runs automatically every **15 minutes** to keep customer data synchronized between Counterpoint and Mailchimp.
 
@@ -313,7 +321,7 @@ If enabled in your configuration, the connector can also **download customer upd
 
 ---
 
-## SECTION 6: Common Customer Sync Questions
+## SECTION 7: Common Customer Sync Questions
 
 Occasionally, two customers in Counterpoint may share the same email address, or a customer’s email address may be updated. The following explains how the connector handles various situations.
 
@@ -343,7 +351,7 @@ However, if the newly entered email address in Counterpoint already exists in Ma
 
 ---
 
-## SECTION 7: Troubleshooting and Sync Status Codes
+## SECTION 8: Troubleshooting and Sync Status Codes
 
 If a customer record is not syncing to Mailchimp, it is important to check their **Mailchimp Sync Status** in Counterpoint.  
 
@@ -386,7 +394,7 @@ The contact profile Mailchimp ID is part of the profile's URL. This can be compa
 
 ---
 
-## SECTION 8: Importing Customers from Mailchimp into Counterpoint
+## SECTION 9: Importing Customers from Mailchimp into Counterpoint
 
 The connector can be configured to import customers from Mailchimp into Counterpoint.  
 
@@ -437,7 +445,7 @@ When importing data from Mailchimp, if an existing customer record in Counterpoi
 
 This protects business names from being replaced with individual name data during the import process.
 
-## SECTION 9: Configuration
+## SECTION 10: Configuration
 
 # Mailchimp Connector Configuration Settings
 
@@ -712,7 +720,7 @@ Additional internal configuration options exist within the connector. These are 
 
 ---
 
-## SECTION 10: Additional Mailchimp Tools
+## SECTION 11: Additional Mailchimp Tools
 
 Additional tools related to the Mailchimp connector can be accessed at **Counterpoint > Connectors > Mailchimp**.  
 
