@@ -67,6 +67,9 @@ When the same contact (based on email address) exists in multiple audiences, eac
 
 The Mailchimp Connector adds a **Mailchimp Customers** button within CounterPoint, providing access to Mailchimp-specific customer fields directly from the CounterPoint customer record.
 
+<img width="1055" height="205" alt="image" src="https://github.com/user-attachments/assets/29a0f346-bd7c-47a6-a59c-a6a2e07d9990" />
+
+
 The email address on the Mailchimp customer record is populated from **Email Address 1** on the CounterPoint customer record.
 
 Depending on configuration, the SMS phone number is populated from either **Phone 1** or **Mobile Phone 1** on the CounterPoint customer record, only when it meets the following criteria:
@@ -76,6 +79,9 @@ Depending on configuration, the SMS phone number is populated from either **Phon
 
 If the configured phone number field contains more than or fewer than 10 digits, or if it includes letters, the SMS number will not be pushed to Mailchimp.
 
+<img width="657" height="698" alt="image" src="https://github.com/user-attachments/assets/0f66b258-fd68-4a45-abf9-fb7c9ed86f1f" />
+
+
 ### Accessing Mailchimp Customer Records
 
 All Mailchimp customer records can also be accessed from:
@@ -83,6 +89,8 @@ All Mailchimp customer records can also be accessed from:
 **Connectors > Mailchimp > Mailchimp Customer Records**
 
 This view allows records to be displayed in table view, where filters can be applied to review customers based on their current sync status.
+
+<img width="1290" height="361" alt="image" src="https://github.com/user-attachments/assets/bab863e0-a168-4980-bf1e-1bf362cbdcac" />
 
 ### Mailchimp Sync Status Codes
 
@@ -106,6 +114,9 @@ An optional Mailchimp Customers Add-on-the-Fly form can be configured to give ca
 ## Section 3: Mailchimp Configuration
 
 The Mailchimp Connector includes a user interface for managing configuration options that control how the connector interacts with Mailchimp and CounterPoint. All configuration settings are managed in **CounterPoint > Connectors > Mailchimp > Mailchimp Configuration**.
+
+<img width="686" height="735" alt="image" src="https://github.com/user-attachments/assets/302763db-d7d9-4664-9d57-fa40f799cabe" />
+
 
 For clients who use multiple Mailchimp accounts, a separate configuration record will exist for each account.
 
@@ -236,9 +247,17 @@ Mailchimp provides only a single product category field. Rapid developed a worka
 
 When combined and sent as description: `Fruits & Vegetables/Tropical Fruits/Golden Grove Company`
 
+<img width="836" height="756" alt="image" src="https://github.com/user-attachments/assets/b8ea5b95-dd50-415d-a6d7-c995c936a996" />
+
 When combined and sent as code: `FRUIT&VEG/TROPFRUITS/GOLDENGROVE`
 
-When configuring this setting, consider how segments will be created in Mailchimp. For specific filtering (e.g., Category **equals** Tropical Fruits), sending a single data type produces the most precise results. For broader filtering (e.g., Category **contains** "Fruit"), combined values may all contribute to the match.
+<img width="730" height="757" alt="image" src="https://github.com/user-attachments/assets/20aca57a-2a56-416b-b181-ef705147ca1b" />
+
+When configuring this setting, consider how segments will be created in Mailchimp. For specific filtering (e.g., Category **equals** Tropical Fruits), sending a single data type produces the most precise results. 
+<img width="692" height="750" alt="image" src="https://github.com/user-attachments/assets/67212d2e-7d76-446f-80a7-dae09d64d26a" />
+
+For broader filtering (e.g., Category **contains** "Fruit"), combined values may all contribute to the match.
+<img width="557" height="758" alt="image" src="https://github.com/user-attachments/assets/7e3c9220-0064-4b89-9fd7-1c79edaf6da0" />
 
 ### Internal Configuration Options
 Additional internal configuration options exist for use by programmers to optimize performance or assist with troubleshooting. These values should not be adjusted by end users.
@@ -248,6 +267,8 @@ Additional internal configuration options exist for use by programmers to optimi
 ## Section 4: Mailchimp Field Mapping — Customers Up
 
 The Mailchimp Field Mapping – Customers Up screen provides a user interface for managing which customer fields are sent from CounterPoint up to Mailchimp. This table defines how customer profile data in CounterPoint maps to Mailchimp profile properties. The standard deployment includes a predefined set of fields. Adjustments to this table should generally be performed by a programmer.
+
+<img width="1026" height="397" alt="image" src="https://github.com/user-attachments/assets/6a3743e4-c3ea-4a66-8b0c-01340f7d9dd8" />
 
 > **Note:** Email Address 1 is a required field and must be sent to Mailchimp.
 
@@ -287,6 +308,9 @@ Calculated fields can also be sent to Mailchimp in some cases. These requests ar
 
 The Mailchimp Field Mapping – Customers Down table provides a user interface for managing which customer fields are imported from Mailchimp down into CounterPoint. For clients using web-based sign-up forms or other Mailchimp integrations, this functionality allows customer data entered in Mailchimp to be imported into CounterPoint, including updating existing fields or inserting new customer records.
 
+<img width="1027" height="271" alt="image" src="https://github.com/user-attachments/assets/cdc3a3c4-cd79-4663-a6d7-5061e4a6fdff" />
+
+
 ### Default Behavior
 
 In a standard deployment, no fields are imported from Mailchimp. All fields in the table are set to **No Action** by default. Any change to this behavior must be requested by the client and configured by a programmer.
@@ -316,6 +340,8 @@ In a standard deployment, no fields are imported from Mailchimp. All fields in t
 ### Mailchimp Item Field Mapping
 
 Item field mapping defines how CounterPoint item values are sent to Mailchimp product fields. The item fields sent to Mailchimp are configurable, allowing different CounterPoint item fields to be mapped to Mailchimp product attributes such as item ID, title, description, type, and URL.
+
+<img width="1020" height="312" alt="image" src="https://github.com/user-attachments/assets/e034f939-f33b-43a8-b793-95a9ef79d5ca" />
 
 Because Mailchimp does not provide dedicated fields for CounterPoint POS ticket data, the connector sends ticket information using Mailchimp's Ecommerce fields.
 
@@ -353,6 +379,8 @@ Examples of tagging criteria include:
 
 Once tagging criteria are defined, Rapid will review the requirements and provide a quote. After approval, a programmer will create the condition filter and add it to the Mailchimp Tag Mapping table.
 
+<img width="1025" height="353" alt="image" src="https://github.com/user-attachments/assets/07a5aa62-c2e6-40da-870c-5b9006ae5659" />
+
 Each condition filter checks the customer's data in CounterPoint and evaluates whether the defined criteria are met. When the condition is satisfied, the connector applies the corresponding tag in Mailchimp.
 
 **Example condition filter for sales over $1,000:**
@@ -368,14 +396,25 @@ AND EXISTS (
   HAVING SUM(SUB_TOT) > 1000
 )
 ```
+<img width="552" height="497" alt="image" src="https://github.com/user-attachments/assets/a177c324-62c9-45e2-91df-c6d7709c301d" />
 
 Once applied, tags become available in Mailchimp and can be used for segmentation or automations. For example, a tag such as **Sales > $1,000** could be used to trigger a VIP automation in Mailchimp.
+
+<img width="396" height="425" alt="image" src="https://github.com/user-attachments/assets/fcab704d-a6f0-4b63-864a-c0e0ed6f3e74" />
+
+<img width="895" height="685" alt="image" src="https://github.com/user-attachments/assets/53910933-36ba-41c0-9003-0263cb01f1b7" />
+
+Multiple automated tags may be configured. Viewing the Mailchimp Tag Mapping table in table view displays the full list of configured tag rules:
+
+<img width="1007" height="227" alt="image" src="https://github.com/user-attachments/assets/294a5ad3-8d70-4004-a66b-780416fc4996" />
 
 ---
 
 ## Section 8: Mailchimp Customer Tags
 
 When a customer qualifies for a new tag, a record is created in the **Mailchimp Customer Tags** table. This table displays tags waiting to be synced, and each record remains visible until it is processed by the connector.
+
+<img width="1053" height="816" alt="image" src="https://github.com/user-attachments/assets/cb7b1ef5-c6cf-4378-87e1-d20a23d34e2b" />
 
 ### Tag Removal
 
@@ -389,6 +428,10 @@ For example, consider a tagging structure based on loyalty point tiers:
 - **Loyalty Points 300** (300+ points)
 
 If a customer's point balance changes and they move into a different tier, older tags may need to be removed. Mailchimp automations can be configured to remove tags when a new tier-based tag is applied.
+
+The example below shows how tags for levels 300, 200, and less than 100 are automatically removed when a customer receives the 100-level tag:
+
+<img width="717" height="750" alt="image" src="https://github.com/user-attachments/assets/858f7d6c-9019-4432-a1ba-de1df9e348be" />
 
 > Contact Rapid for assistance in defining tagging criteria or to request a quote for creating custom condition filters.
 
@@ -440,6 +483,8 @@ For example, you may want to identify that 43 customers have an invalid email ad
 - If no customer records exist for a given status, that status will not appear in the table.
 - The table can be refreshed at any time to display the most up-to-date information.
 - This is best viewed in table view.
+
+<img width="1012" height="280" alt="image" src="https://github.com/user-attachments/assets/9f5b5bcf-18dd-410a-844b-743004901ab5" />
 
 For details on the meaning of each sync status value, refer to [Section 2: Mailchimp Customer Records](#section-2-mailchimp-customer-records).
 
