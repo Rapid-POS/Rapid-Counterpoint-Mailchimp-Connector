@@ -6,12 +6,11 @@ _Adds two-way syncing with Mailchimp, text message (SMS) customer support, and a
 
 ## New Features & Improvements
 
-### Two-way syncing with Mailchimp
-Previously, pulling customers from Mailchimp into Counterpoint meant opting in to a one-time import of the entire Mailchimp customer list. The connector now keeps customers in sync on an ongoing basis — a customer created or edited in Mailchimp is automatically brought into Counterpoint as that change happens, without needing to re-run a full list import.
+### Additional Mailchimp download configuration
+Down-sync (Mailchimp → Counterpoint) now has more configuration options.
 
-* Which Mailchimp fields map to which Counterpoint fields is configurable, separately for new customers versus updates to existing ones.
-* Downloading changes from Mailchimp and uploading changes to Mailchimp now run on their own separate schedules. Uploads still happen frequently (every minute by default); downloads can now run less often (a few times a day by default), cutting down on unnecessary traffic to Mailchimp.
-* As with the previous list-import option, pulling customers down from Mailchimp can create a large number of new Counterpoint customers and potentially introduce duplicates — review your Mailchimp configuration carefully before enabling this.
+* Field mapping for the download direction is now configurable, separately for new customers vs. updates — matching the flexibility already available for uploads.
+* Downloading from Mailchimp and uploading to Mailchimp now run on separate schedules. Uploads stay frequent (every minute by default); downloads can now run less often (a few times a day by default).
 
 ### Text message (SMS) support
 You can now enroll and sync customers who only have a phone number, no email address.
@@ -20,6 +19,7 @@ You can now enroll and sync customers who only have a phone number, no email add
 * A text-only contact created or changed directly in Mailchimp is now brought down into Counterpoint the same way an email contact is.
 * A customer's texting consent is now synced in both directions between Mailchimp and Counterpoint, the same as email marketing consent already was.
 * Administrators can now configure how Mailchimp's subscribed/unsubscribed status gets translated into your own Counterpoint fields, for both email and text opt-in.
+* Requires an active Mailchimp SMS Marketing subscription — SMS is an add-on to Mailchimp's paid plans, requires a separate application and approval, and is billed through monthly SMS credits.
 
 ### Run a sync on demand
 A new option lets you trigger an out-of-cycle sync immediately instead of waiting for the next scheduled run — available from a command-line option and from a new toolbar button on the Counterpoint Customers screen.
