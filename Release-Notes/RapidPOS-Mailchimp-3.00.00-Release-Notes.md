@@ -2,7 +2,7 @@
 
 **Release Date:** July 29, 2026
 
-_Adds two-way syncing with Mailchimp, text message (SMS) customer support, and an on-demand sync option, plus several reliability fixes._
+_Adds more options for two-way syncing with Mailchimp, text message (SMS) customer support, and an on-demand sync option, plus several reliability fixes._
 
 ## New Features & Improvements
 
