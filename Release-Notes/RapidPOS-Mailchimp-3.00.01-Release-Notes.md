@@ -1,5 +1,5 @@
 # MailchimpConnector v3.00.01 Release Notes
-**Release Date:** August 18, 2026
+**Release Date:** August 24th, 2026
 
 _This release fixes several sync crashes that could block item, customer, or order syncing, and makes order and customer syncing more reliable for busy stores._
 
