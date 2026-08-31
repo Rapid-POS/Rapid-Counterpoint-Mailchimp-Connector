@@ -1,4 +1,4 @@
-# Mailchimp Connector 3.00.07 Release Notes - Coming Soon
+# Mailchimp Connector 3.00.07 Release Notes
 **Release Date:** September 2, 2026
 
 This release fixes duplicate loyalty reward emails, restores unsubscribe syncing between Mailchimp and Counterpoint, and resolves sync errors affecting product categories and customer records.
