@@ -1,29 +1,27 @@
-# RapidPOS Connector for MailChimp v3.00.09 Release Notes - Coming Soon
+# RapidPOS Connector for MailChimp v3.00.10 Release Notes
 **Release Date:** September 13, 2026
 
-Fixes for item categorization, discontinued product syncing, and customer data handling.
+Fixes for SMS-only contact syncing, bounced email handling, and Message Center alerts.
+
+## New Features & Improvements
+
+### More Reliable Initial Marketing Preferences
+A new customer's initial email/SMS marketing preference is now set correctly from the moment the record is created.
 
 ## Bug Fixes
 
-### Product Category and Subclass Data Now Syncs Correctly
-Items were syncing to Mailchimp without their subclass data, so subclass-based customer segments returned far fewer contacts than they should have.
+### Crash Importing SMS-Only Contacts from MailChimp
+Fixed a crash that happened when importing MailChimp contacts that have only a phone number and no email address.
 
-* Item sync now includes subclass data in every product record sent to Mailchimp.
-* Fixed a related issue where items with size or variant tracking were treated as if they had none.
-* Products that already synced won't pick up the corrected category data on their own — they'll need to be resent to Mailchimp.
+### Customers with Only a Phone Number Failed to Sync for Text Marketing
+Fixed several issues that could stop a customer with a phone number but no email from syncing to MailChimp for SMS marketing.
 
-### Discontinued Items Can Be Corrected After Syncing
-Once an item was marked discontinued in Counterpoint, its Mailchimp product was locked and couldn't be updated again, even if it had synced with incomplete or incorrect data beforehand.
+* A conflict with an existing MailChimp contact could make the sync fail outright instead of updating the right record.
+* A separate crash could happen when syncing a customer with a phone number but no email on file.
+* Text marketing consent status now syncs to MailChimp correctly, instead of sometimes being rejected or reset to the wrong value.
 
-* An item that already synced at least once stays eligible for correction after being discontinued.
-* Items that never synced still won't create a new Mailchimp product once discontinued — that part hasn't changed.
+### Bounced Email Addresses Weren't Recognized Correctly
+Fixed an issue where a customer whose email MailChimp flagged as undeliverable (bounced) wasn't reflected correctly in Counterpoint. The connector no longer treats that customer as subscribed, and won't keep trying to email an address MailChimp already flagged as bad.
 
-### Sync Errors No Longer Affect Other Records in the Same Batch
-Certain items and customers were causing sync errors that stopped other records in the same batch from processing.
-
-* Items missing vendor, category, or subcategory data now sync with a blank value instead of failing.
-* Customers with no last name on file no longer cause the customer sync to fail.
-* One bad customer record can no longer block the rest of the batch.
-
-### Manual Run Button Fixed
-The manual sync run button wasn't working correctly. It's fixed.
+### Message Center Alerts Not Clearing Automatically
+Fixed an issue where old Message Center alerts weren't getting marked as read automatically like they should.
