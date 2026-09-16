@@ -1,5 +1,5 @@
 # Rapid POS Mailchimp Connector
-Updated June 17th 2026
+Updated September 16th 2026
 
 The Rapid Mailchimp Connector automatically syncs customer and sales data from CounterPoint to Mailchimp to support targeted email campaigns and audience segmentation. It can also import new or updated customer information from Mailchimp back into CounterPoint, ensuring both systems stay up to date.
 
