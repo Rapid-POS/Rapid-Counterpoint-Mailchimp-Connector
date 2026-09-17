@@ -15,7 +15,7 @@ The Rapid Mailchimp Connector keeps your Mailchimp audience in sync with Counter
 
 ## Minimum System Requirements:
 - Minimum Counterpoint version: **8.5.6.2**  
-- Minimum SQL Server version: **2017**  
+- Minimum SQL Server version: **2016**  
 - Minimum Supported Operating System version: **Windows Server 2016** or **Windows 11 Pro** 
 - Minimum PowerShell version: **5.1**
   
