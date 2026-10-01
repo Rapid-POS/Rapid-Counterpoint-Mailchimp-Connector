@@ -1,6 +1,6 @@
 # MailChimp v3.01.00 Release Notes - COMING SOON
 
-**Release Date:** October 4, 2026
+**Release Date:** TBD
 
 This release fixes how MailChimp subscription changes come back into Counterpoint and adds Unsubscribed and Archived sync statuses.
 
