@@ -1,5 +1,5 @@
 # Rapid POS Mailchimp Connector
-Updated September 16th 2026
+Updated November 5th 2026
 
 The Rapid Mailchimp Connector automatically syncs customer and sales data from CounterPoint to Mailchimp to support targeted email campaigns and audience segmentation. It can also import new or updated customer information from Mailchimp back into CounterPoint, ensuring both systems stay up to date.
 
@@ -10,6 +10,9 @@ The Rapid Mailchimp Connector automatically syncs customer and sales data from C
 ## Overview
 
 The Rapid Mailchimp Connector keeps your Mailchimp audience in sync with CounterPoint customer and sales data, enabling accurate segmentation, automated flows, and targeted email and SMS campaigns. Customer profiles flow from CounterPoint up to Mailchimp on a 15-minute cycle, and transactional documents sync every minute.
+
+> [!IMPORTANT]
+> After any connector upgrade, the number of customers sent to Mailchimp each day is capped until you review your Mailchimp data and turn throttling off. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling). We recommend pausing Mailchimp campaigns during the upgrade review window.
 
 ---
 
@@ -43,6 +46,8 @@ If your system does not meet these minimum requirements, please consult your Car
 - [Section 12: Mailchimp Connector Execution and Sync Timing](#section-12-mailchimp-connector-execution-and-sync-timing)
 - [Section 13: Customer Profile Sync Logic and Workflow](#section-13-customer-profile-sync-logic-and-workflow)
 - [Section 14: Managing Customer Email and Phone Updates](#section-14-managing-customer-email-and-phone-updates)
+- [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling)
+- [Section 16: Mailchimp Contact-Limit Guard](#section-16-mailchimp-contact-limit-guard)
 - [Conclusion](#conclusion)
 ---
 
@@ -111,6 +116,8 @@ Each Mailchimp customer record includes a sync status value indicating its curre
 | **6** | Invalid SMS number |
 | **9** | Sync error; requires remediation before it can be re-synced |
 
+Customers held back by the daily throttle cap ([Section 15](#section-15-post-upgrade-throttling)) or the contact-limit guard ([Section 16](#section-16-mailchimp-contact-limit-guard)) stay at status **1** until they can be sent. Nothing is lost.
+
 ### Add-on-the-Fly Mailchimp Customer Form (Optional)
 
 An optional Mailchimp Customers Add-on-the-Fly form can be configured to give cashiers limited access to Mailchimp customer records, if desired. Contact Rapid for a quote if you are interested in a customized add-on-the-fly form for your company.
@@ -155,6 +162,8 @@ Defines the CounterPoint User ID assigned to new customers imported from Mailchi
 
 ### Version
 Displays the current version of the Mailchimp connector. This field updates automatically when the connector is upgraded and is provided for reference only.
+
+Any change in version, including an upgrade, a downgrade, or a first install, turns on post-upgrade throttling. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling).
 
 ### Customer Lookup Days
 Defines the number of days subtracted from the current date when retrieving customer profiles from Mailchimp. This adjustment helps compensate for timezone differences and ensures recently updated customer records are included during synchronization.
@@ -264,6 +273,32 @@ When configuring this setting, consider how segments will be created in Mailchim
 
 For broader filtering (e.g., Category **contains** "Fruit"), combined values may all contribute to the match.
 <img width="557" height="758" alt="image" src="https://github.com/user-attachments/assets/7e3c9220-0064-4b89-9fd7-1c79edaf6da0" />
+
+### Plan Contact Limit
+Your Mailchimp plan's contact allowance (`PLAN_CONTACT_LIMIT`). Mailchimp's API does not report this value, so it must be entered manually. It sets the stop point for the contact-limit guard and the size of the daily throttle cap.
+
+> [!IMPORTANT]
+> If Plan Contact Limit is blank, no customers are uploaded to Mailchimp until it is set.
+
+### Allowable Overage
+The number of contacts above or below the plan limit at which the connector stops adding new contacts (`ALLOWABLE_OVERAGE`). See [Section 16: Mailchimp Contact-Limit Guard](#section-16-mailchimp-contact-limit-guard).
+
+| Setting | Behavior |
+|---|---|
+| **Blank or `0`** | Stops at the plan contact limit. |
+| **Positive number** | Allows that many contacts over the plan limit. This accepts an overage charge from Mailchimp. |
+| **Negative number** | Stops that many contacts below the plan limit. |
+
+### Current Usage
+Displays the account's current Mailchimp contact count (`CURRENT_USAGE`). This value is updated automatically by the connector and is provided for reference only.
+
+### Throttle Enabled
+Displays `Y` while post-upgrade throttling is on (`THROTTLE_ENABLED`). This value is set automatically on any version change and can only be turned off from **Connectors > Mailchimp > Disable Mailchimp Throttle**. Read-only. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling).
+
+### Throttle % Customers Up
+The share of the plan contact limit that can be sent to Mailchimp per day while throttling is on (`THROTTLE_PCT_CUSTOMERS_UP`). Read-only.
+
+> **Default:** `3.33`
 
 ### Internal Configuration Options
 Additional internal configuration options exist for use by programmers to optimize performance or assist with troubleshooting. These values should not be adjusted by end users.
@@ -527,6 +562,8 @@ This is especially useful in scenarios such as repeated error messages following
 
 Marking messages as read stops the pop-up notifications but does **not** delete the messages. All connector messages remain accessible in CounterPoint and can be reviewed at any time.
 
+Connector messages are also marked as read automatically after 3 days. While post-upgrade throttling is on, a new reminder is sent each day so the throttle stays visible. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling).
+
 ---
 
 ## Section 10: Run Mailchimp Connector Button
@@ -551,6 +588,10 @@ A background process periodically checks for the Manual Run Connector action fla
 
 In both scenarios, the action flag is automatically cleared when execution begins.
 
+### Manual Runs and Throttling
+
+Manual runs follow the same limits as scheduled runs. While post-upgrade throttling is on, customers sent during a manual run count toward the day's cap ([Section 15](#section-15-post-upgrade-throttling)). A manual run also always reads a fresh contact count from Mailchimp for the contact-limit guard ([Section 16](#section-16-mailchimp-contact-limit-guard)).
+
 > **Important:** Manual execution is intended primarily for programmer-led testing or troubleshooting, often when the connector has been temporarily disabled. It is not designed for routine operational use, as the connector runs automatically according to its configured schedule.
 
 ---
@@ -566,6 +607,7 @@ For example, you may want to identify that 43 customers have an invalid email ad
 - If no customer records exist for a given status, that status will not appear in the table.
 - The table can be refreshed at any time to display the most up-to-date information.
 - This is best viewed in table view.
+- While post-upgrade throttling is on, the status 1 count shows how many customers are waiting to be sent.
 
 <img width="1012" height="280" alt="image" src="https://github.com/user-attachments/assets/9f5b5bcf-18dd-410a-844b-743004901ab5" />
 
@@ -610,6 +652,12 @@ The Mailchimp Connector operates as a Windows Service, automatically syncing cus
 | Documents in the Queue | Every 1 minute *(configurable to prevent rate limiting)* |
 
 If a document being synced contains a new customer, the customer profile is created in Mailchimp immediately as part of the document sync. The connector does not wait for the next 15-minute customer profile sync cycle.
+
+### Daily Limits After an Upgrade
+
+During normal operation, each run sends up to 5,000 customers (`MAX_CUSTOMERS_TO_SYNC`). While post-upgrade throttling is on, a daily cap replaces that limit for customers sent up to Mailchimp. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling).
+
+While throttling is on, orders sync only for customers who already have a Mailchimp ID. Orders for new customers wait until those customers are sent. Orders for customers already in Mailchimp sync at full speed. Item syncs and customer imports from Mailchimp are not throttled.
 
 ---
 
@@ -665,16 +713,138 @@ It is recommended to manually delete the detached Mailchimp customer record afte
 
 ---
 
+## Section 15: Post-Upgrade Throttling
+
+After any connector version change, the connector limits how many customers it sends to Mailchimp each day until you review the data and turn throttling off. If an update has a defect, it reaches a small group of customers instead of your whole list.
+
+### What Is Throttled
+
+| Sync Flow | Throttled? |
+|---|---|
+| **Customers up** (CounterPoint to Mailchimp) | Yes |
+| **Customers down** (Mailchimp to CounterPoint), including new customer creation | No |
+| **Items up** | No |
+| **Orders up** | Indirectly. Orders for new customers wait until the customer is sent. Orders for customers already in Mailchimp sync at full speed. |
+
+### When Throttling Turns On
+
+Throttling turns on automatically when the connector service starts on a different version than the one last recorded. This includes:
+
+- Upgrades, including a second upgrade while throttling is already on (the current throttle period continues)
+- Downgrades
+- First installs
+
+Restarting the service on the same version does not change anything.
+
+> [!IMPORTANT]
+> The release that introduces this feature turns on throttling for every existing account. We recommend pausing Mailchimp campaigns during the upgrade review window.
+
+### The Daily Cap
+
+While throttling is on, the connector sends no more than a set share of your Mailchimp plan's contact limit each day:
+
+```
+DAILY_CAP = max(1, floor(THROTTLE_PCT_CUSTOMERS_UP × PLAN_CONTACT_LIMIT / 100))
+```
+
+The default is **3.33%** per day, so a 3-day review sends no more than 9.99% of your plan.
+
+| Plan Contact Limit | Daily Cap | Most in 3 Days |
+|---|---|---|
+| 500 | 16 | 48 (9.6%) |
+| 2,000 | 66 | 198 (9.9%) |
+| 3,600 | 119 | 357 (9.92%) |
+| 5,000 | 166 | 498 (9.96%) |
+| 10,000 | 333 | 999 (9.99%) |
+| 20,000 | 666 | 1,998 (9.99%) |
+| 50,000 | 1,665 | 4,995 (9.99%) |
+| 100,000 | 3,330 | 9,990 (9.99%) |
+
+How the cap works:
+
+- Customers sync at normal speed until the day's cap is reached. After that, nothing more is sent until the next day. This means the connector tends to stop at about the same time each day, and that time is recorded.
+- Only successful syncs (status 0) count against the cap. Customers that fail (status 5 or 9) do not count.
+- Customers still in the middle of a sync (status 2) are subtracted from what's left, so overlapping runs cannot push the day past the cap.
+- Customers that were not sent stay at status 1 and go out the next day. Nothing is lost.
+- The count resets at midnight, based on the SQL Server's local time.
+- Manual runs are throttled too and count toward the day's cap.
+- Throttling does not end on its own after 3 days. It continues at the same daily cap until you turn it off.
+
+Things to keep in mind:
+
+- The cap is based on your **plan** limit, not on how many customers you have enrolled. If you have far fewer customers than your plan allows, a larger share of them goes out each day.
+- If your account normally changes more customers per day than the cap allows, a backlog builds up while throttling is on. The [Mailchimp Customer Status View](#section-11-mailchimp-customer-status-view) shows the backlog as status 1.
+- If Plan Contact Limit is blank, no customers are uploaded until it is set.
+
+### Turning Throttling Off
+
+1. Review the customers that have synced to Mailchimp since the upgrade.
+2. In CounterPoint, go to **Connectors > Mailchimp > Disable Mailchimp Throttle**.
+3. Confirm the prompt.
+
+The next run goes back to the normal per-run limit. No restart is needed. If throttling is already off, the message **Throttling is not enabled** is displayed.
+
+> **Note:** Throttling can only be turned off from this menu option. There is no toolbar button, and the setting is read-only in the Mailchimp Configuration window.
+
+### Message Center Alerts
+
+| Alert | When It Appears |
+|---|---|
+| **Throttling enabled** | When a version change turns throttling on. Explains how to turn it off. |
+| **Daily reminder** | Each day while throttling is on. Shows how many customers are waiting, roughly how many days they will take to clear, and the time today's cap was reached. |
+
+---
+
+## Section 16: Mailchimp Contact-Limit Guard
+
+Mailchimp bills on the highest contact count your account reaches, even if contacts are archived afterward. The contact-limit guard stops the connector from adding new contacts once your account reaches its stop point, so you are not charged for going over. It works separately from throttling.
+
+### Stop Point
+
+**Stop point = Plan Contact Limit + Allowable Overage**
+
+For a 5,000-contact plan:
+
+| Allowable Overage | Stops At |
+|---|---|
+| **`0` or blank** | 5,000 |
+| **`200`** | 5,200 |
+| **`-250`** | 4,750 |
+
+A positive overage means you accept Mailchimp's overage charge for those extra contacts. See [Section 3: Mailchimp Configuration](#section-3-mailchimp-configuration) for the related settings.
+
+### How It Works
+
+- At the start of every upload run, the connector reads your account's total contact count from Mailchimp and saves it to **Current Usage**. The value is reused for 5 minutes, except for manual runs, which always read it fresh. When usage gets close to the stop point, the count is read on every run.
+- If Mailchimp cannot be reached, the connector uses the last known count and keeps syncing.
+- **Below the stop point:** New contacts are limited to the room left before the stop point. If throttling is also on, whichever limit is lower applies.
+- **At or over the stop point:** Existing contacts keep updating, and new contacts are held at status 1 until there is room.
+
+### Alerts
+
+Message Center alerts are raised at **90%** and **98%** of the stop point, and again when new contacts stop syncing. The 90% and 98% alerts are each sent once. The stopped alert repeats at most once a day.
+
+### When You Reach Your Plan Limit
+
+Moving to a higher Mailchimp plan is a billing decision, so the connector stops adding new contacts at the stop point rather than moving you into the next tier. To resume syncing:
+
+1. Upgrade your Mailchimp plan.
+2. Raise **Plan Contact Limit** to match the new plan.
+3. Held customers sync on the next run.
+
+> **Note:** Archiving contacts in Mailchimp also allows syncing to resume, but it does not remove a charge that has already been incurred.
+
+---
+
 ## Conclusion
 
 The Rapid Mailchimp Connector streamlines the exchange of customer profiles and transactional data between CounterPoint and Mailchimp, enabling powerful email and SMS marketing, accurate segmentation, and automated flows.
 
 Before go-live, review configuration settings, field mappings, and audience configurations to ensure customer data and subscription preferences are handled correctly. After deployment, monitor customer and document sync status views to identify invalid data or records requiring remediation.
 
+After every upgrade, review the customers synced during the throttle period and turn off throttling once you're satisfied ([Section 15](#section-15-post-upgrade-throttling)). Keep Plan Contact Limit matched to your current Mailchimp plan ([Section 16](#section-16-mailchimp-contact-limit-guard)).
+
 For assistance with configuration changes, custom field mapping, tag setup, or troubleshooting, contact Rapid Support.
-
-
-
 
 
 
