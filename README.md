@@ -1,5 +1,5 @@
 # Rapid POS Mailchimp Connector
-Updated November 5th 2026
+Updated November 10th 2026
 
 The Rapid Mailchimp Connector automatically syncs customer and sales data from CounterPoint to Mailchimp to support targeted email campaigns and audience segmentation. It can also import new or updated customer information from Mailchimp back into CounterPoint, ensuring both systems stay up to date.
 
@@ -9,7 +9,7 @@ The Rapid Mailchimp Connector automatically syncs customer and sales data from C
 
 ## Overview
 
-The Rapid Mailchimp Connector keeps your Mailchimp audience in sync with CounterPoint customer and sales data, enabling accurate segmentation, automated flows, and targeted email and SMS campaigns. Customer profiles flow from CounterPoint up to Mailchimp on a 15-minute cycle, and transactional documents sync every minute.
+The Rapid Mailchimp Connector keeps your Mailchimp audience in sync with CounterPoint customer and sales data, enabling accurate segmentation, automated flows, and targeted email and SMS campaigns. By default, customer profiles and sales documents are sent from CounterPoint to Mailchimp every minute, and changes made in Mailchimp are pulled into CounterPoint three times a day. See [Section 12: Mailchimp Connector Execution and Sync Timing](#section-12-mailchimp-connector-execution-and-sync-timing) for the full schedule.
 
 > [!IMPORTANT]
 > After any connector upgrade, the number of customers sent to Mailchimp each day is capped until you review your Mailchimp data and turn throttling off. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling). We recommend pausing Mailchimp campaigns during the upgrade review window.
@@ -77,8 +77,15 @@ The Mailchimp Connector adds a **Mailchimp Customers** button within CounterPoin
 The email address on the Mailchimp customer record is populated from **Email Address 1** on the CounterPoint customer record.
 The connector pushes customer records from Counterpoint to Mailchimp **only** when the customer has a valid email address in **Email 1**.
 
-- If the **`Opt-Out of Email Marketing`** checkbox is **unchecked**, the customer is sent to Mailchimp as an **active contact** (subscribed).  
-- If the **`Opt-Out of Email Marketing`** checkbox is **checked**, the customer is sent to Mailchimp as an **opted-out contact**, meaning their email address will appear as **unsubscribed** across all Mailchimp lists.
+Subscription status is controlled by the customer field chosen in **Email Opt-In Field** (and **SMS Opt-In Field** for text messages) in the Mailchimp Configuration. By default, the email field is **Include in Marketing Mailouts**, where `Y` means the customer has opted out. The connector handles that inversion for you.
+
+Opt-in and opt-out changes work in both directions:
+
+- If a customer unsubscribes in Mailchimp, the connector updates the configured field in CounterPoint.
+- If a customer is opted out in CounterPoint, Mailchimp is updated to match.
+- A customer with no email address cannot be opted in to email, and a customer with no mobile number cannot be opted in to SMS.
+
+> **Note:** If you choose a different opt-in field whose values are not `Y` or `N`, or whose meaning is reversed, ask Rapid POS to set the matching conversion expressions.
 
 ![Example of Counterpoint customer record](./images/counterpoint-customer-record-opt-out-flag.png)  
 
@@ -112,6 +119,8 @@ Each Mailchimp customer record includes a sync status value indicating its curre
 | **0** | Fully synced; nothing pending |
 | **1** | Recently created or updated; will sync on the next connector run |
 | **2** | Profile is currently in the active sync queue |
+| **3** | Unsubscribed. The customer has unsubscribed in Mailchimp (or an SMS contact was denied). |
+| **4** | Archived. The contact is archived in Mailchimp. This is final: if the contact is restored in Mailchimp, it stays at 4 in CounterPoint. |
 | **5** | Invalid email address |
 | **6** | Invalid SMS number |
 | **9** | Sync error; requires remediation before it can be re-synced |
@@ -128,7 +137,9 @@ An optional Mailchimp Customers Add-on-the-Fly form can be configured to give ca
 
 The Mailchimp Connector includes a user interface for managing configuration options that control how the connector interacts with Mailchimp and CounterPoint. All configuration settings are managed in **CounterPoint > Connectors > Mailchimp > Mailchimp Configuration**.
 
-<img width="686" height="735" alt="image" src="https://github.com/user-attachments/assets/302763db-d7d9-4664-9d57-fa40f799cabe" />
+***<!-- TODO: Replace with an updated Mailchimp Configuration screenshot showing the new opt-in, throttle, and contact-limit fields. -->***
+
+
 
 
 For clients who use multiple Mailchimp accounts, a separate configuration record will exist for each account.
@@ -225,6 +236,12 @@ Defines the Mailchimp subscription status used when a customer is opted in. Curr
 ### Opt-Out Definition
 Defines the Mailchimp subscription status used when a customer is opted out. Currently the only supported value is `UNSUBSCRIBED`.
 
+### Email Opt-In Field
+Defines which CounterPoint customer field controls email subscription status. The default is **Include in Marketing Mailouts**, where `Y` means the customer has opted out; the connector handles that inversion. See [Section 2: Mailchimp Customer Records](#section-2-mailchimp-customer-records).
+
+### SMS Opt-In Field
+Defines which CounterPoint customer field controls SMS subscription status. See [Section 2: Mailchimp Customer Records](#section-2-mailchimp-customer-records).
+
 ### SMS # for Mailchimp
 Defines which CounterPoint customer phone number field is used to populate the Mailchimp SMS Number – Mobile Phone profile property. Supported options are `Mobile Phone 1` and `Phone 1`. If the selected field does not contain exactly 10 numeric digits, the phone number will not be sent to Mailchimp.
 
@@ -317,7 +334,7 @@ The Mailchimp Field Mapping – Customers Up screen provides a user interface fo
 
 It is important to distinguish between **customer** information and information related to **tickets** or **items**. Mailchimp accepts a wide range of customer data but supports only limited ticket and item information.
 
-For sychning customer information, the Mailchimp connector uses **custom field mapping**, allowing nearly any field from the Counterpoint customer record to be sent to Mailchimp. Customer merge fields and their mappings are displayed in **Counterpoint > Connectors > Mailchimp > Mailchimp Field Mapping**.  
+For sycning customer information, the Mailchimp connector uses **custom field mapping**, allowing nearly any field from the Counterpoint customer record to be sent to Mailchimp. Customer merge fields and their mappings are displayed in **Counterpoint > Connectors > Mailchimp > Mailchimp Field Mapping**.  
 
 This screen shows which Counterpoint fields populate Mailchimp merge fields and how each is mapped. To adjust field mappings, consult with Rapid.
 
@@ -562,13 +579,13 @@ This is especially useful in scenarios such as repeated error messages following
 
 Marking messages as read stops the pop-up notifications but does **not** delete the messages. All connector messages remain accessible in CounterPoint and can be reviewed at any time.
 
-Connector messages are also marked as read automatically after 3 days. While post-upgrade throttling is on, a new reminder is sent each day so the throttle stays visible. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling).
+Message Center alerts are marked as read automatically once they are older than the number of days set in **Mark Alerts as Read in Message Center After (Days)**. The default is **3**. Marking them read does not delete them.
 
 ---
 
 ## Section 10: Run Mailchimp Connector Button
 
-The Mailchimp Connector runs automatically every **15 minutes** to keep customer data synchronized between Counterpoint and Mailchimp.
+The Mailchimp Connector runs automatically on its configured schedules to keep customer data synchronized between Counterpoint and Mailchimp (see [Section 12](#section-12-mailchimp-connector-execution-and-sync-timing)).
 The **Run Mailchimp Connector** menu option allows authorized users to manually trigger the Mailchimp Connector when needed. Manual execution is typically used for testing or troubleshooting and is not required during normal operation.
 
 ### How Manual Execution Works
@@ -587,6 +604,8 @@ A background process periodically checks for the Manual Run Connector action fla
 - If the connector **is already running**, the system waits for the current execution to complete, then automatically restarts for all configured accounts.
 
 In both scenarios, the action flag is automatically cleared when execution begins.
+
+A manual run pulls changes from Mailchimp first and then sends changes from CounterPoint. See [Section 13](#section-13-customer-profile-sync-logic-and-workflow).
 
 ### Manual Runs and Throttling
 
@@ -646,12 +665,19 @@ The Mailchimp Connector operates as a Windows Service, automatically syncing cus
 
 ### Sync Intervals
 
-| Data Type | Interval |
+| Job | Default Schedule |
 |---|---|
-| Customer Profiles | Every 15 minutes |
-| Documents in the Queue | Every 1 minute *(configurable to prevent rate limiting)* |
+| Customer profiles sent to Mailchimp | Every minute |
+| Sales and transaction documents sent to Mailchimp | Every minute |
+| Changes pulled from Mailchimp into CounterPoint | Three times a day (12 AM, 8 AM, and 4 PM) |
+| Archived Mailchimp contact check | Once a day at 2 AM |
+| Recovery job | Every 15 minutes |
 
-If a document being synced contains a new customer, the customer profile is created in Mailchimp immediately as part of the document sync. The connector does not wait for the next 15-minute customer profile sync cycle.
+Schedules use the server's local time and can be changed in the Mailchimp Configuration.
+
+The recovery job resets customer records that were left stuck in the queued status (status 2) by an interrupted sync, so they are picked up again on the next run.
+
+If a document being synced contains a new customer, the customer profile is created in Mailchimp immediately as part of the document sync.
 
 ### Daily Limits After an Upgrade
 
@@ -663,18 +689,28 @@ While throttling is on, orders sync only for customers who already have a Mailch
 
 ## Section 13: Customer Profile Sync Logic and Workflow
 
-The Mailchimp Connector processes customer profile updates in a defined sequence to ensure that the most recent and authoritative data is preserved between CounterPoint and Mailchimp.
+The Mailchimp Connector keeps customer profiles aligned between CounterPoint and Mailchimp so that the most recent change is preserved.
 
-### Step 1: Sync Changes from Mailchimp Down to CounterPoint
+### Separate Schedules
 
-The connector first retrieves profile changes made in Mailchimp and evaluates whether those changes should be applied to CounterPoint. It compares the date and time of the most recent profile change in Mailchimp to the most recent update in CounterPoint, and uses the values from the source with the most recent timestamp.
+Changes from Mailchimp and changes from CounterPoint are processed on separate schedules, so one does not always run before the other. See [Section 12](#section-12-mailchimp-connector-execution-and-sync-timing) for the default schedules.
 
 - If **Insert/Update Customers** is enabled, all configured fields are synced down from Mailchimp to CounterPoint.
 - If **Insert/Update Customers** is disabled, only subscription status changes are synced down.
 
-### Step 2: Sync Changes from CounterPoint Up to Mailchimp
+### When a Customer Changes on Both Sides
 
-After processing inbound changes, the connector identifies customer records in CounterPoint that have been created or modified since the previous sync and pushes those updates up to Mailchimp, ensuring Mailchimp profiles reflect the most current customer information stored in CounterPoint.
+When a customer was changed in both CounterPoint and Mailchimp, the more recent change wins.
+
+For opt-in and opt-out, each side is judged by the time that specific field last changed. An unrelated edit in CounterPoint (a new address, for example) does not block a newer Mailchimp unsubscribe.
+
+### Run Connector
+
+Pressing **Run Connector** is the exception to the separate schedules. It pulls from Mailchimp first and then sends from CounterPoint.
+
+### Archived Contacts
+
+Once a day (2 AM by default) the connector checks Mailchimp for archived contacts and marks the matching CounterPoint customers as Archived (status 4). Archived customers are not re-sent to Mailchimp.
 
 ---
 
@@ -845,16 +881,3 @@ Before go-live, review configuration settings, field mappings, and audience conf
 After every upgrade, review the customers synced during the throttle period and turn off throttling once you're satisfied ([Section 15](#section-15-post-upgrade-throttling)). Keep Plan Contact Limit matched to your current Mailchimp plan ([Section 16](#section-16-mailchimp-contact-limit-guard)).
 
 For assistance with configuration changes, custom field mapping, tag setup, or troubleshooting, contact Rapid Support.
-
-
-
-
-
-
-
-
-
-
-
-
-
