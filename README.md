@@ -71,13 +71,13 @@ When the same contact (based on email address) exists in multiple audiences, eac
 
 The Mailchimp Connector adds a **Mailchimp Customers** button within CounterPoint, providing access to Mailchimp-specific customer fields directly from the CounterPoint customer record.
 
-<img width="1055" height="205" alt="image" src="https://github.com/user-attachments/assets/29a0f346-bd7c-47a6-a59c-a6a2e07d9990" />
+<img width="1251" height="772" alt="Mailchimp Customers 2" src="https://github.com/user-attachments/assets/5c80cfd8-09a9-4884-8e13-21b76c00a9e7" />
 
 
 The email address on the Mailchimp customer record is populated from **Email Address 1** on the CounterPoint customer record.
 The connector pushes customer records from Counterpoint to Mailchimp **only** when the customer has a valid email address in **Email 1**.
 
-Subscription status is controlled by the customer field chosen in **Email Opt-In Field** (and **SMS Opt-In Field** for text messages) in the Mailchimp Configuration. By default, the email field is **Include in Marketing Mailouts**, where `Y` means the customer has opted out. The connector handles that inversion for you.
+Subscription status is controlled by the customer field chosen in **Opt-In Reference Field (AR_CUST)** in the **EMAIL** section of the Mailchimp Configuration (and the matching field in the **SMS** section for text messages). By default, the email field is `INCLUDE_IN_MARKETING_MAILOUTS`, where `Y` means the customer has opted out. The connector handles that inversion for you.
 
 Opt-in and opt-out changes work in both directions:
 
@@ -85,9 +85,8 @@ Opt-in and opt-out changes work in both directions:
 - If a customer is opted out in CounterPoint, Mailchimp is updated to match.
 - A customer with no email address cannot be opted in to email, and a customer with no mobile number cannot be opted in to SMS.
 
-> **Note:** If you choose a different opt-in field whose values are not `Y` or `N`, or whose meaning is reversed, ask Rapid POS to set the matching conversion expressions.
-
-![Example of Counterpoint customer record](./images/counterpoint-customer-record-opt-out-flag.png)  
+> **Note:** If you choose a different opt-in field whose values are not `Y` or `N`, or whose meaning is reversed, ask Rapid POS to set the matching conversion expressions (**Opt-In Field Expression** and **Opt-In Field Download Expression**).
+<img width="1012" height="572" alt="image" src="https://github.com/user-attachments/assets/655ef098-0a43-4583-a87e-60d24307510f" />
 
 
 Depending on configuration, the SMS phone number is populated from either **Phone 1** or **Mobile Phone 1** on the CounterPoint customer record, only when it meets the following criteria:
@@ -136,12 +135,7 @@ An optional Mailchimp Customers Add-on-the-Fly form can be configured to give ca
 ## Section 3: Mailchimp Configuration
 
 The Mailchimp Connector includes a user interface for managing configuration options that control how the connector interacts with Mailchimp and CounterPoint. All configuration settings are managed in **CounterPoint > Connectors > Mailchimp > Mailchimp Configuration**.
-
-***<!-- TODO: Replace with an updated Mailchimp Configuration screenshot showing the new opt-in, throttle, and contact-limit fields. -->***
 <img width="692" height="920" alt="image" src="https://github.com/user-attachments/assets/df879e90-c82d-4e70-a03e-01ffbead6a6a" />
-
-
-
 
 For clients who use multiple Mailchimp accounts, a separate configuration record will exist for each account.
 
@@ -156,6 +150,9 @@ Identifies the Mailchimp account and provides the authentication credentials req
 
 ### Last Sync Date (UTC)
 Displays the timestamp of the most recent connector run. This value is automatically updated after each sync and is used to determine which records have changed since the last sync.
+
+### Last Archived Lookup Date (UTC)
+Displays the timestamp of the most recent check for archived Mailchimp contacts. See [Section 13: Customer Profile Sync Logic and Workflow](#section-13-customer-profile-sync-logic-and-workflow).
 
 ### Workgroup ID
 Specifies which CounterPoint Workgroup ID is used when creating new customers imported from Mailchimp. A special workgroup is used so that a custom `CRM_MLCHMP` customer template can be applied if needed.
@@ -237,11 +234,11 @@ Defines the Mailchimp subscription status used when a customer is opted in. Curr
 ### Opt-Out Definition
 Defines the Mailchimp subscription status used when a customer is opted out. Currently the only supported value is `UNSUBSCRIBED`.
 
-### Email Opt-In Field
-Defines which CounterPoint customer field controls email subscription status. The default is **Include in Marketing Mailouts**, where `Y` means the customer has opted out; the connector handles that inversion. See [Section 2: Mailchimp Customer Records](#section-2-mailchimp-customer-records).
+### Opt-In Reference Field (AR_CUST)
+Defines which CounterPoint customer field controls subscription status. The **EMAIL** and **SMS** sections each have their own. The email default is `INCLUDE_IN_MARKETING_MAILOUTS`, where `Y` means the customer has opted out; the connector handles that inversion. See [Section 2: Mailchimp Customer Records](#section-2-mailchimp-customer-records).
 
-### SMS Opt-In Field
-Defines which CounterPoint customer field controls SMS subscription status. See [Section 2: Mailchimp Customer Records](#section-2-mailchimp-customer-records).
+### Opt-In Field Expression and Opt-In Field Download Expression
+Conversion expressions that translate the opt-in reference field's values for Mailchimp (upload) and back into CounterPoint (download). The defaults match `INCLUDE_IN_MARKETING_MAILOUTS`. These are set by Rapid POS when a different opt-in field is used.
 
 ### SMS # for Mailchimp
 Defines which CounterPoint customer phone number field is used to populate the Mailchimp SMS Number – Mobile Phone profile property. Supported options are `Mobile Phone 1` and `Phone 1`. If the selected field does not contain exactly 10 numeric digits, the phone number will not be sent to Mailchimp.
@@ -263,6 +260,9 @@ Controls whether sales data is synchronized from CounterPoint to Mailchimp.
 |---|---|
 | **Checked** | Sales data is sent from CounterPoint to Mailchimp. |
 | **Unchecked** | Only customer data is synchronized. |
+
+### Stores to Send Orders For
+A comma-separated list of CounterPoint store IDs whose orders are sent to Mailchimp.
 
 ### Start Date Days
 Defines how many days of historical sales data should be pushed during the initial sync. The default value is **-60 days**, meaning sales from the past 60 days will be pushed to Mailchimp during the first sync. This value can be adjusted as needed.
@@ -292,13 +292,13 @@ When configuring this setting, consider how segments will be created in Mailchim
 For broader filtering (e.g., Category **contains** "Fruit"), combined values may all contribute to the match.
 <img width="557" height="758" alt="image" src="https://github.com/user-attachments/assets/7e3c9220-0064-4b89-9fd7-1c79edaf6da0" />
 
-### Plan Contact Limit
+### Mailchimp Plan Contact Limit
 Your Mailchimp plan's contact allowance (`PLAN_CONTACT_LIMIT`). Mailchimp's API does not report this value, so it must be entered manually. It sets the stop point for the contact-limit guard and the size of the daily throttle cap.
 
 > [!IMPORTANT]
-> If Plan Contact Limit is blank, no customers are uploaded to Mailchimp until it is set.
+> If Mailchimp Plan Contact Limit is blank, no customers are uploaded to Mailchimp until it is set.
 
-### Allowable Overage
+### Allowable Overage (Contacts Over the Plan Limit)
 The number of contacts above or below the plan limit at which the connector stops adding new contacts (`ALLOWABLE_OVERAGE`). See [Section 16: Mailchimp Contact-Limit Guard](#section-16-mailchimp-contact-limit-guard).
 
 | Setting | Behavior |
@@ -307,19 +307,19 @@ The number of contacts above or below the plan limit at which the connector stop
 | **Positive number** | Allows that many contacts over the plan limit. This accepts an overage charge from Mailchimp. |
 | **Negative number** | Stops that many contacts below the plan limit. |
 
-### Current Usage
+### Current Mailchimp Contact Count
 Displays the account's current Mailchimp contact count (`CURRENT_USAGE`). This value is updated automatically by the connector and is provided for reference only.
 
-### Throttle Enabled
-Displays `Y` while post-upgrade throttling is on (`THROTTLE_ENABLED`). This value is set automatically on any version change and can only be turned off from **Connectors > Mailchimp > Disable Mailchimp Throttle**. Read-only. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling).
+### Customer Throttling Enabled
+Checked while post-upgrade throttling is on (`THROTTLE_ENABLED`). This value is set automatically on any version change and can only be turned off from **Connectors > Mailchimp > Disable Mailchimp Throttle**. Read-only. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling).
 
-### Throttle % Customers Up
+### Customer Throttle (% of Plan Contact Limit per Day)
 The share of the plan contact limit that can be sent to Mailchimp per day while throttling is on (`THROTTLE_PCT_CUSTOMERS_UP`). Read-only.
 
-> **Default:** `3.33`
+> **Default:** `3.330`
 
 ### Internal Configuration Options
-Additional internal configuration options exist for use by programmers to optimize performance or assist with troubleshooting. These values should not be adjusted by end users.
+The **Internal** section holds the settings above for the contact limit and throttling, the sync schedules (see [Section 12](#section-12-mailchimp-connector-execution-and-sync-timing)), and other options used by programmers to optimize performance or assist with troubleshooting, such as the maximum number of customers, orders, and items per run and log file limits. Other than Mailchimp Plan Contact Limit and Allowable Overage, these values should not be adjusted by end users.
 
 ---
 
@@ -578,9 +578,9 @@ The **Mark All Mailchimp Messages as Read** menu option allows users to suppress
 
 This is especially useful in scenarios such as repeated error messages following a temporary internet outage, or high-volume alert conditions that have already been reviewed.
 
-Marking messages as read stops the pop-up notifications but does **not** delete the messages. All connector messages remain accessible in CounterPoint and can be reviewed at any time.
+Marking messages as read stops the pop-up notifications but does **not** delete the messages. Read messages remain accessible in CounterPoint and can be reviewed until they are deleted (see below).
 
-Message Center alerts are marked as read automatically once they are older than the number of days set in **Mark Alerts as Read in Message Center After (Days)**. The default is **3**. Marking them read does not delete them.
+Message Center alerts are marked as read automatically once they are older than the number of days set in **Mark Alerts as Read in Message Center After Days**. The default is **3**. Read alerts are deleted once they are older than the number of days set in **Delete Read Alerts from Message Center After Days**. The default is **30**.
 
 ---
 
@@ -666,15 +666,15 @@ The Mailchimp Connector operates as a Windows Service, automatically syncing cus
 
 ### Sync Intervals
 
-| Job | Default Schedule |
-|---|---|
-| Customer profiles sent to Mailchimp | Every minute |
-| Sales and transaction documents sent to Mailchimp | Every minute |
-| Changes pulled from Mailchimp into CounterPoint | Three times a day (12 AM, 8 AM, and 4 PM) |
-| Archived Mailchimp contact check | Once a day at 2 AM |
-| Recovery job | Every 15 minutes |
+| Job | Default Schedule | Configuration Setting |
+|---|---|---|
+| Customer profiles sent to Mailchimp | Every minute | Profile Execution Time (Upload) |
+| Sales and transaction documents sent to Mailchimp | Every minute | Send Sales Execution Time |
+| Changes pulled from Mailchimp into CounterPoint | Three times a day (12 AM, 8 AM, and 4 PM) | Profile Execution Time (Download) |
+| Archived Mailchimp contact check | Once a day at 2 AM | Archived Lookup Execution Time |
+| Recovery job | Every 15 minutes | Rollback Stat Execution Time |
 
-Schedules use the server's local time and can be changed in the Mailchimp Configuration.
+Schedules use the server's local time and can be changed in the **Internal** section of the Mailchimp Configuration.
 
 The recovery job resets customer records that were left stuck in the queued status (status 2) by an interrupted sync, so they are picked up again on the next run.
 
@@ -682,7 +682,7 @@ If a document being synced contains a new customer, the customer profile is crea
 
 ### Daily Limits After an Upgrade
 
-During normal operation, each run sends up to 5,000 customers (`MAX_CUSTOMERS_TO_SYNC`). While post-upgrade throttling is on, a daily cap replaces that limit for customers sent up to Mailchimp. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling).
+During normal operation, each run sends up to the **Max Number of Customers to Sync** (5,000 by default). While post-upgrade throttling is on, a daily cap replaces that limit for customers sent up to Mailchimp. See [Section 15: Post-Upgrade Throttling](#section-15-post-upgrade-throttling).
 
 While throttling is on, orders sync only for customers who already have a Mailchimp ID. Orders for new customers wait until those customers are sent. Orders for customers already in Mailchimp sync at full speed. Item syncs and customer imports from Mailchimp are not throttled.
 
@@ -811,7 +811,7 @@ Things to keep in mind:
 
 - The cap is based on your **plan** limit, not on how many customers you have enrolled. If you have far fewer customers than your plan allows, a larger share of them goes out each day.
 - If your account normally changes more customers per day than the cap allows, a backlog builds up while throttling is on. The [Mailchimp Customer Status View](#section-11-mailchimp-customer-status-view) shows the backlog as status 1.
-- If Plan Contact Limit is blank, no customers are uploaded until it is set.
+- If Mailchimp Plan Contact Limit is blank, no customers are uploaded until it is set.
 
 ### Turning Throttling Off
 
@@ -838,7 +838,7 @@ Mailchimp bills on the highest contact count your account reaches, even if conta
 
 ### Stop Point
 
-**Stop point = Plan Contact Limit + Allowable Overage**
+**Stop point = Mailchimp Plan Contact Limit + Allowable Overage**
 
 For a 5,000-contact plan:
 
@@ -852,7 +852,7 @@ A positive overage means you accept Mailchimp's overage charge for those extra c
 
 ### How It Works
 
-- At the start of every upload run, the connector reads your account's total contact count from Mailchimp and saves it to **Current Usage**. The value is reused for 5 minutes, except for manual runs, which always read it fresh. When usage gets close to the stop point, the count is read on every run.
+- At the start of every upload run, the connector reads your account's total contact count from Mailchimp and saves it to **Current Mailchimp Contact Count**. The value is reused for 5 minutes, except for manual runs, which always read it fresh. When usage gets close to the stop point, the count is read on every run.
 - If Mailchimp cannot be reached, the connector uses the last known count and keeps syncing.
 - **Below the stop point:** New contacts are limited to the room left before the stop point. If throttling is also on, whichever limit is lower applies.
 - **At or over the stop point:** Existing contacts keep updating, and new contacts are held at status 1 until there is room.
@@ -866,7 +866,7 @@ Message Center alerts are raised at **90%** and **98%** of the stop point, and a
 Moving to a higher Mailchimp plan is a billing decision, so the connector stops adding new contacts at the stop point rather than moving you into the next tier. To resume syncing:
 
 1. Upgrade your Mailchimp plan.
-2. Raise **Plan Contact Limit** to match the new plan.
+2. Raise **Mailchimp Plan Contact Limit** to match the new plan.
 3. Held customers sync on the next run.
 
 > **Note:** Archiving contacts in Mailchimp also allows syncing to resume, but it does not remove a charge that has already been incurred.
@@ -879,6 +879,11 @@ The Rapid Mailchimp Connector streamlines the exchange of customer profiles and 
 
 Before go-live, review configuration settings, field mappings, and audience configurations to ensure customer data and subscription preferences are handled correctly. After deployment, monitor customer and document sync status views to identify invalid data or records requiring remediation.
 
-After every upgrade, review the customers synced during the throttle period and turn off throttling once you're satisfied ([Section 15](#section-15-post-upgrade-throttling)). Keep Plan Contact Limit matched to your current Mailchimp plan ([Section 16](#section-16-mailchimp-contact-limit-guard)).
+After every upgrade, review the customers synced during the throttle period and turn off throttling once you're satisfied ([Section 15](#section-15-post-upgrade-throttling)). Keep Mailchimp Plan Contact Limit matched to your current Mailchimp plan ([Section 16](#section-16-mailchimp-contact-limit-guard)).
 
 For assistance with configuration changes, custom field mapping, tag setup, or troubleshooting, contact Rapid Support.
+
+
+
+
+
