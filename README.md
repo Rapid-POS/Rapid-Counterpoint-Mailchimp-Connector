@@ -138,6 +138,7 @@ An optional Mailchimp Customers Add-on-the-Fly form can be configured to give ca
 The Mailchimp Connector includes a user interface for managing configuration options that control how the connector interacts with Mailchimp and CounterPoint. All configuration settings are managed in **CounterPoint > Connectors > Mailchimp > Mailchimp Configuration**.
 
 ***<!-- TODO: Replace with an updated Mailchimp Configuration screenshot showing the new opt-in, throttle, and contact-limit fields. -->***
+<img width="692" height="920" alt="image" src="https://github.com/user-attachments/assets/df879e90-c82d-4e70-a03e-01ffbead6a6a" />
 
 
 
