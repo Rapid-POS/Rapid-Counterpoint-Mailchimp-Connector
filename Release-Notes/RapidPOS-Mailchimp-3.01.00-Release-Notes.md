@@ -1,4 +1,4 @@
-# MailChimp v3.01.00 Release Notes
+# MailChimp v3.01.00 Release Notes - COMING SOON
 
 **Release Date:** TBD
 
@@ -45,11 +45,11 @@ Every MailChimp plan comes with a contact allowance, for example 2,500 contacts,
 
 _Applies only if your connector is set to send sales to MailChimp._
 
-A new setting lets you choose which Counterpoint stores send their orders to MailChimp, so orders that already reach MailChimp another way (from an e-commerce store, for example) are not sent twice.
+A new setting lets you choose which Counterpoint stores send their orders to MailChimp. Use it to avoid sending orders twice when some of them already reach MailChimp another way, such as from Shopify.
 
-- Enter the store IDs, separated by commas, in "Stores to send orders for", in the Sales section of the Configuration screen. Leave it blank to send orders for every store.
-- If the list is empty when this update is installed, the update fills it in with the store it was installed for.
-- The connector no longer picks up sales from stores that are not on the list. Changing the list does not take back orders that were already sent.
+- By default the list is blank, and the connector keeps sending orders from every store, as it did before this update.
+- To limit which stores send orders, enter their store IDs, separated by commas, in "Stores to send orders for", in the Sales section of the Configuration screen.
+- The connector does not pick up sales from stores that are not on the list. Changing the list does not take back orders that were already sent.
 
 ### Archived contacts are detected automatically
 
