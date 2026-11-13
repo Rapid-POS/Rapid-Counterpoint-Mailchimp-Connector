@@ -1,6 +1,6 @@
-# MailChimp v3.01.00 Release Notes - COMING SOON
+# MailChimp v3.01.00 Release Notes
 
-**Release Date:** TBD
+**Release Date:** 11/15/2026
 
 _Customer syncing to MailChimp is now paced after each update, and the connector stops adding new customers before your account goes over its MailChimp plan's contact limit. You can limit orders to chosen stores, archived contacts are detected automatically, and we fixed many opt-in and sync problems._
 
@@ -10,7 +10,7 @@ Starting with this release, the MailChimp connector slows down customer syncing 
 
 Throttling gives you a chance to confirm that customers are coming through correctly after an update before the rest of your customer list follows. If something looks wrong, only a small share of your customers will have been sent.
 
-Throttling stays on until you turn it off, so after each update:
+## Throttling stays on until you turn it off, so after each update you must do the below:
 
 1. Wait for the first batch of customers to reach MailChimp. A Message Center alert tells you throttling is on, and a daily reminder shows how many customers are still waiting.
 2. In MailChimp, look over a few of the recently synced contacts. Check that their names, email addresses, phone numbers and subscribe status match what you have in Counterpoint.
@@ -24,7 +24,7 @@ If something does not look right, leave throttling on and contact RapidPOS suppo
 
 After an update, the connector now sends customers to MailChimp at a reduced daily pace until you turn throttling off. See Action Required above for the steps.
 
-- The connector turns throttling on for every account the first time this update runs, and again after any later version change.
+- The connector turns throttling on for every account the first time this update runs, and again after every later update.
 - You can change the daily percentage in "Customer throttle (% of plan contact limit per day)". Customers over the daily limit wait until the next day.
 - Turning throttling off takes effect right away with no restart.
 - The Configuration screen shows whether throttling is on and the daily percentage, for viewing only.
@@ -35,11 +35,11 @@ The connector now stops adding new customers to MailChimp before your account go
 
 Every MailChimp plan comes with a contact allowance, for example 2,500 contacts, and MailChimp bills on the highest number of contacts your account ever reaches. Before this update, the connector could keep sending Counterpoint customers to MailChimp past that number, which could move your account into a more expensive tier or trigger overage charges.
 
-- Your plan's contact allowance is shown in "MailChimp plan contact limit" on the Configuration screen.
+- RapidPOS sets your plan's contact allowance during installation. You can see it in "MailChimp plan contact limit" on the Configuration screen.
 - The connector compares this limit with "Current MailChimp contact count", which shows the latest count read from MailChimp.
 - "Allowable overage (contacts over the plan limit)" lets you accept some contacts over the limit, or stop a set number of contacts below it.
 - You get a Message Center alert at 90% and 98% of the limit, so you have warning before anything is held. You also get an alert when new customers are being held.
-- At the limit, customers already in MailChimp keep updating while new customers wait. To resume, upgrade your MailChimp plan and raise the contact limit.
+- At the limit, customers already in MailChimp keep updating while new customers wait. To resume, upgrade your MailChimp plan and contact RapidPOS support to raise the contact limit.
 
 ### Send orders only for the stores you choose
 
@@ -47,8 +47,10 @@ _Applies only if your connector is set to send sales to MailChimp._
 
 A new setting lets you choose which Counterpoint stores send their orders to MailChimp. Use it to avoid sending orders twice when some of them already reach MailChimp another way, such as from Shopify.
 
-- By default the list is blank, and the connector keeps sending orders from every store, as it did before this update.
-- To limit which stores send orders, enter their store IDs, separated by commas, in "Stores to send orders for", in the Sales section of the Configuration screen.
+- The list is in "Stores to send orders for", in the Sales section of the Configuration screen. Enter store IDs separated by commas, or leave it blank to send orders for every store.
+- If store IDs were entered for you during installation, the list shows those stores. If none were entered, it stays blank and orders keep going out for every store, as before.
+- If your list already had stores in it, this update does not change it.
+- If your list has stores in it and you want orders sent for more, add their IDs to the list.
 - The connector does not pick up sales from stores that are not on the list. Changing the list does not take back orders that were already sent.
 
 ### Archived contacts are detected automatically
@@ -89,11 +91,11 @@ When you set up a new MailChimp account, the connector enrolls customers who alr
 
 _Applies only if your connector is set to send sales to MailChimp._
 
-MailChimp only accepts an order when every item on it already exists in your MailChimp store. Before this update, if a customer bought an item the connector had not sent to MailChimp yet (for example, a new item sold the same day it was added), the order was rejected and logged as an error.
+MailChimp only accepts an order when every item on it already exists in your MailChimp store. Before this update, an order that included an item the connector had not sent to MailChimp yet was rejected and logged as an error.
 
-- The connector now spots the missing item, queues it to be sent, and holds the order instead of sending it early.
-- Once the item is in MailChimp, the order goes out automatically. You do not need to do anything.
-- If MailChimp cannot accept the item itself, for example because of a problem with the item's details, its orders keep waiting. The error is logged for the item rather than for each order, so you know what to fix. Once the item is sent successfully, the held orders go out.
+- The connector now spots the missing item, queues it to be sent, and holds the order until every item on it is in MailChimp.
+- Once all of the order's items are in MailChimp, the order goes out automatically. You do not need to do anything.
+- If MailChimp cannot accept an item, for example because of a problem with the item's details, its orders keep waiting. The error is logged for the item rather than for each order, so you know what to fix. Once the item is sent successfully, the held orders go out.
 
 ### Read MailChimp alerts are cleaned out of the Message Center
 
@@ -206,7 +208,6 @@ The update no longer stops with an error on databases created before certain tab
 
 - Lookups by customer, MailChimp ID, email, phone and sync status are faster, thanks to new indexes on the MailChimp tables only.
 - The update no longer scans a store's whole ticket history. It looks only at the recent period used for order sync, and only for accounts that send sales.
-- The connector now protects the stored database password with a key tied to the computer it runs on.
 - The download log now shows the phone number and customer number for each text contact, so it is easier to follow a contact through a sync.
 - Conversion rules for opt-in settings now work the same way on every database, whether or not it is case sensitive.
 
