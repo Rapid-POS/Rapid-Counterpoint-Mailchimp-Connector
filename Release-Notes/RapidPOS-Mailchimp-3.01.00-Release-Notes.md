@@ -1,4 +1,4 @@
-# MailChimp v3.01.00 Release Notes
+# MailChimp v3.01.00 Release Notes - Coming Soon
 
 **Release Date:** 11/15/2026
 
