@@ -1,6 +1,6 @@
-# MailChimp v3.01.00 Release Notes - Coming Soon
+# MailChimp v3.01.00 Release Notes
 
-**Release Date:** 11/15/2026
+**Release Date:** 11/18/2026
 
 _Customer syncing to MailChimp is now paced after each update, and the connector stops adding new customers before your account goes over its MailChimp plan's contact limit. You can limit orders to chosen stores, archived contacts are detected automatically, and we fixed many opt-in and sync problems._
 
